@@ -92,27 +92,31 @@ public class LastMinuteHotel {
     String username;
     String password;
     String phone;
+    String address;
+    String nationality;
+    String emailUser;
+    String emailDomain;
+    String email;
+    String bio;
+    String publicEmailUser;
+    String publicEmailDomain;
+    String publicEmail;
 
     System.out.println("Who are you?");
     System.out.println("c - A client");
     System.out.println("o - An owner");
-    System.out.println("q - None, let me go!")
+    System.out.println("q - None, let me go!");
 
+    options:
     while(true){
-
-      System.out.println("Choose an action:");
-      System.out.println("l - login");
-      System.out.println("r - register");
-      System.out.println("q - quit");
-
       try {
         switch(kb.nextLine().charAt(0)){
           case 'c':
             isClient = true;
-            break;
+            break options;
           case 'o':
             isClient = false;
-            break;
+            break options;
           case 'q':
             return;
           default:
@@ -124,20 +128,34 @@ public class LastMinuteHotel {
       }
     }
 
-    System.out.println("Fill out the details")
+    System.out.println("Fill out the details");
     System.out.print("Username: ");
     username = kb.nextLine();
     System.out.print("Password: ");
     password = kb.nextLine();
     System.out.print("Phone: ");
     phone = kb.nextLine();
-    System.out.print("Password: ");
-    password = kb.nextLine();
+    System.out.print("Address: ");
+    address = kb.nextLine();
+    System.out.print("Nationality: ");
+    nationality = kb.nextLine();
+    System.out.print("Email username: ");
+    emailUser = kb.nextLine();
+    System.out.print("Email domain: ");
+    emailDomain = kb.nextLine();
+    email = emailUser + "@" + emailDomain;
+
     if(isClient)
       new Client(username, password, phone, address, nationality, email);
     else{
-      new Client(username, password, phone, address, nationality, email);
-
+      System.out.print("Bio: ");
+      bio = kb.nextLine();
+      System.out.print("Public email username: ");
+      publicEmailUser = kb.nextLine();
+      System.out.print("Public email domain: ");
+      publicEmailDomain = kb.nextLine();
+      publicEmail = publicEmailUser + "@" + publicEmailDomain;
+      new Owner(username, password, phone, address, nationality, email, bio, publicEmail);
     }
   }
 
@@ -162,7 +180,6 @@ public class LastMinuteHotel {
             break;
           case 'r':
             register();
-            Client user = new Client("vcc", "1", 1, "a", "a", "a");
             break;
           case 'q':
             break options;
