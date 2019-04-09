@@ -4,20 +4,20 @@ import java.util.*;
 import java.time.*;
 
 public enum Facility {
-	Wifi,
-	Pool,
-	Breakfast,
-	Iron,
-	Praying Mat,
-	Keetle,
-	Dental Kit,
-	Shampoo,
-	Washing Gel,
-	Parking,
-	Smoking Area,
-	Playground,
-	Durian Permission,
-	Pets Permission,
-	Blowdryer,
-	Fridge;
+	WIFI(Wifi),
+	POOL(Pool),
+	BREAKFAST(Breakfast),
+	IRON(Iron),
+	MAT(Praying Mat),
+	KEETLE(Keetle),
+	DENTAL(Dental Kit),
+	SHAMPOO(Shampoo),
+	WASHING(Washing Gel),
+	PARKING(Parking),
+	SMOKING(Smoking Area),
+	PLAYGROUND(Playground),
+	DURIAN(Durian Permission),
+	PETS(Pets Permission),
+	BLOWDRYER(Blowdryer),
+	FRIDGE(Fridge);
 }
