@@ -14,14 +14,12 @@ public class LastMinuteHotel {
       return;
     }
 
-    Booking booking;
-    //client.display();
+    Booking booking = client.getFutureBooking();
+    client.display();
 
-    booking = client.getFutureBooking();
     if(booking != null){
       System.out.println("This service is limited to one booking! Check yours:");
       booking.display();
-
     } else {
       System.out.println("What are you looking for?");
     }
@@ -43,7 +41,7 @@ public class LastMinuteHotel {
       System.out.println("Choose an action:");
       System.out.println("m - Manage houses");
       System.out.println("v - View bookings");
-      System.out.println("a - View bookings");
+      System.out.println("a - Add house");
       System.out.println("q - quit");
 
       try {
@@ -104,7 +102,9 @@ public class LastMinuteHotel {
         }
       } catch(StringIndexOutOfBoundsException e) {
         continue;
-      }
+      } /*catch(Exception e){
+        break;
+      }*/
     }
   }
 }

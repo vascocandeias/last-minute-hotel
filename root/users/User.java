@@ -19,7 +19,7 @@ public abstract class User {
 	public User(String username, String password, int phone, String address,
 				String nationality, String email){
 		this.username=username;
-		this.password=password; 
+		this.password=password;
 		this.phone=phone;
 		this.address=address;
 		this.nationality=nationality;
@@ -82,7 +82,7 @@ public abstract class User {
 	}
 
 	static public User logIn(String username, String password){
-		for (int i=0; i<users.length; i++){
+		for (int i=0; i<users.length && users[i] != null; i++){
 			if (users[i].getUsername().equals(username))
 				if(users[i].getPassword().equals(password))
 					return users[i];
