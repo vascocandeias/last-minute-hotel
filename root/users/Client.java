@@ -1,6 +1,7 @@
 package root.users;
 
 import java.util.*;
+import root.bookings.*;
 
 public class Client extends User {
 
@@ -10,6 +11,7 @@ public class Client extends User {
 				String nationality, String emailUser, String emailDomain){
 		super(username, password, phone, address, nationality, emailUser, emailDomain);
 		futureBooking=null;
+	}
 
 	private Booking getFutureBooking() {
 		return futureBooking;

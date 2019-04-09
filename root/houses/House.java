@@ -21,6 +21,8 @@ public class House {
 	public String getLocation() { return location; }
 	public Owner getOwner() { return owner; }
 
+  public House(){System.out.println("House created");};
+
 	public void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;
 	}
@@ -32,11 +34,11 @@ public class House {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-/*
+
 	public void set(Owner owner) {
 		this.owner = owner;
 	}
-
+/*
 	public void link(Owner owner) {
 		if (owner != null) {
 			owner.getOwner().add(this);
