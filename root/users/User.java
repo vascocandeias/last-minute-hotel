@@ -16,8 +16,8 @@ public abstract class User {
 
 	public User(String username, String password, int phone, String address,
 				String nationality, String emailUser, String emailDomain){
-		this.username=username;
-		this.password=password;
+		this.username=username; //verificar que é unico
+		this.password=password; //verificar pass
 		this.phone=phone;
 		this.address=address;
 		this.nationality=nationality;
