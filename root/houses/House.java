@@ -1,7 +1,7 @@
 package root.houses;
 
 import java.util.*;
-import root.users.Booking;
+import root.bookings.Booking;
 import root.users.Owner;
 import root.bookings.Booking;
 
@@ -32,7 +32,7 @@ public class House {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+/*
 	public void set(Owner owner) {
 		this.owner = owner;
 	}

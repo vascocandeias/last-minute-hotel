@@ -3,6 +3,7 @@ package root.bookings;
 import java.util.*;
 import java.time.*;
 import root.houses.House;
+import root.users.Client;
 
 public class Booking {
 
@@ -54,7 +55,7 @@ public class Booking {
 	private void setPrice(double price) {
 		this.price = price;
 	}
-
+/*
 	public void link(Client client) {
 		if (client != null) {
 			client.unlink();
@@ -86,5 +87,5 @@ public class Booking {
 			get().get().remove(this);
 			set(null);
 		}
-	}
+	}*/
 }
