@@ -10,19 +10,27 @@ public abstract class User {
 	private int phone;
 	private String address;
 	private String nationality;
-	private String emailUser;
-	private String emailDomain;
 	private String email;
+	private static User [] users;
+	private static numberOfUsers;
 
 	public User(String username, String password, int phone, String address,
-				String nationality, String emailUser, String emailDomain){
-		this.username=username; //verificar que é unico
-		this.password=password; //verificar pass
+				String nationality, String email){
+		this.username=username;
+		this.password=password; 
 		this.phone=phone;
 		this.address=address;
 		this.nationality=nationality;
 		this.emailUser=emailUser;
 		this.emailDomain=emailDomain;
+		if (this.numberOfUsers == this.users.length) {
+			User [] aux = new User[this.users.length*2];
+			for(int i=0 ; i<this.users.length; i++)
+				aux[i]=this.users[i];
+			this.users=aux;
+		}
+		this.users[this.numberOfUsers] = this;
+		this.numberOfUsers++;
 	}
 
 	public String getUsername() {
@@ -31,6 +39,14 @@ public abstract class User {
 	//private ?
 	public String getPassword() {
 		return password;
+	}
+	//private ?
+	public User [] getUsers() {
+		return users;
+	}
+	//private ?
+	public int getNumberOfUsers() {
+		return numberOfUsers;
 	}
 	public int getPhone() {
 		return phone;
@@ -64,14 +80,13 @@ public abstract class User {
 		this.email = email;
 	}
 
-	static public User logIn(String username, String password, User...users){
+	static public User logIn(String username, String password){
 		for (int i=0; i<users.length; i++){
-			if (users[i].getUsername.equals(username))
-				if(users[i].getPassword.equals(password))
-					return user[i];
+			if (this.users[i].getUsername().equals(username))
+				if(this.users[i].getPassword().equals(password))
+					return this.users[i];
 				else return null;
 		}
 		return null;
 	}
-
 }
