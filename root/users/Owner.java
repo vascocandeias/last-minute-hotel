@@ -12,7 +12,7 @@ public class Owner extends User {
 	private int numberOfHouses;
 	private String publicEmail;
 
-	public Owner(String username, String password, int phone, String address,
+	public Owner(String username, String password, String phone, String address,
 				String nationality, String email, String bio, String publicEmail){
 		super(username, password, phone, address, nationality, email);
 		houses = new House[NUM_HOUSES];

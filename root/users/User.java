@@ -16,11 +16,11 @@ public abstract class User {
 	private static User [] users = new User[NUM_USERS];
 	private static int numberOfUsers;
 
-	public User(String username, String password, int phone, String address,
+	public User(String username, String password, String phone, String address,
 				String nationality, String email){
 		this.username=username;
 		this.password=password;
-		this.phone=phone;
+		this.phone=Integer.parseInt(phone);
 		this.address=address;
 		this.nationality=nationality;
 		this.email=email;

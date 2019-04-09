@@ -57,6 +57,9 @@ public class LastMinuteHotel {
             break;
           case 'q':
             return;
+          default:
+            System.out.println("Invalid input.");
+            break;
         }
       } catch(StringIndexOutOfBoundsException e) {
         continue;
@@ -64,12 +67,83 @@ public class LastMinuteHotel {
     }
   }
 
-  public static void main(String[] args) {
+  public static void login(){
 
     Scanner kb = new Scanner(System.in);
     String username;
     String password;
-    User user;
+
+    System.out.print("Username: ");
+    username = kb.nextLine();
+    System.out.print("Password: ");
+    password = kb.nextLine();
+    User user = User.logIn(username, password);
+    if(user instanceof Client)
+      menu((Client) user);
+    else
+      menu((Owner) user);
+  }
+
+  public static void register(){
+
+    boolean isClient = true;
+
+    Scanner kb = new Scanner(System.in);
+    String username;
+    String password;
+    String phone;
+
+    System.out.println("Who are you?");
+    System.out.println("c - A client");
+    System.out.println("o - An owner");
+    System.out.println("q - None, let me go!")
+
+    while(true){
+
+      System.out.println("Choose an action:");
+      System.out.println("l - login");
+      System.out.println("r - register");
+      System.out.println("q - quit");
+
+      try {
+        switch(kb.nextLine().charAt(0)){
+          case 'c':
+            isClient = true;
+            break;
+          case 'o':
+            isClient = false;
+            break;
+          case 'q':
+            return;
+          default:
+            System.out.println("Invalid input.");
+            break;
+        }
+      } catch(StringIndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+
+    System.out.println("Fill out the details")
+    System.out.print("Username: ");
+    username = kb.nextLine();
+    System.out.print("Password: ");
+    password = kb.nextLine();
+    System.out.print("Phone: ");
+    phone = kb.nextLine();
+    System.out.print("Password: ");
+    password = kb.nextLine();
+    if(isClient)
+      new Client(username, password, phone, address, nationality, email);
+    else{
+      new Client(username, password, phone, address, nationality, email);
+
+    }
+  }
+
+  public static void main(String[] args) {
+
+    Scanner kb = new Scanner(System.in);
 
     System.out.println("Welcome to Last Minute Hotel Booking!");
 
@@ -84,15 +158,11 @@ public class LastMinuteHotel {
       try {
         switch(kb.nextLine().charAt(0)){
           case 'l':
-            System.out.print("Username: ");
-            username = kb.nextLine();
-            System.out.print("Password: ");
-            password = kb.nextLine();
-            Client client = (Client) User.logIn(username, password);
-            menu(client);
+            login();
             break;
           case 'r':
-            user = new Client("vcc", "1", 1, "a", "a", "a");
+            register();
+            Client user = new Client("vcc", "1", 1, "a", "a", "a");
             break;
           case 'q':
             break options;

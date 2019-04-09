@@ -7,7 +7,7 @@ public class Client extends User {
 
 	private Booking futureBooking;
 
-	public Client(String username, String password, int phone, String address,
+	public Client(String username, String password, String phone, String address,
 				String nationality, String email){
 		super(username, password, phone, address, nationality, email);
 		futureBooking=null;
