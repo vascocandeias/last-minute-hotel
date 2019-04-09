@@ -51,7 +51,15 @@ public class House {
     System.out.println("Location" + location);
   }
 
-/*
+  public boolean checkAvailability(int in, int out){
+  	for(int i=in; i<out; i++){
+  		if(calendar[i]!=null)
+  			return false;
+  	}
+  	return true;
+  }
+
+	/*
 	public void link(Owner owner) {
 		if (owner != null) {
 			owner.getOwner().add(this);
