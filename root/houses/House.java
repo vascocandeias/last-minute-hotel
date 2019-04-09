@@ -1,21 +1,20 @@
 package root.houses;
 
 import java.util.*;
-import java.time.*;
 import root.users.Booking;
 import root.users.Owner;
 
 public class House {
 
-	private Set<boolean> facilities = new HashSet<>();
-	private Set<Booking> calendar = new HashSet<>();
+	private boolean[] facilities = new boolean[Facility.allOf().size()];
+	private Booking[] calendar = new Booking[];
 	private double pricePerNightPerPerson;
 	private double rentalFee;
 	private String location;
-	private Owner ;
+	private Owner owner;
 	private Set<Booking>  = new HashSet<>();
 
-	private Set<boolean> getFacilities() {
+	private boolean[] getFacilities() {
 		return facilities;
 	}
 

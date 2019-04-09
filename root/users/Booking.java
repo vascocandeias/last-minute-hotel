@@ -5,7 +5,9 @@ import java.time.*;
 import root.houses.House;
 
 public class Booking {
-	
+
+	private static final int CAL_SIZE = 15;
+
 	private Date checkIn;
 	private Date checkOut;
 	private House house;
