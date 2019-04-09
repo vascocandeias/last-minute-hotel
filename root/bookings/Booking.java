@@ -104,7 +104,4 @@ public class Booking {
 			set(null);
 		}
 	}
-
-// ----------- << class.extras@AAAAAAFp+w6SZBqZmpM= >>
-// ----------- >>
 }
