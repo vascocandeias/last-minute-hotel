@@ -5,6 +5,7 @@ import java.time.*;
 import root.houses.House;
 
 public class Owner extends User {
+	private static final int NUM_HOUSES 10;
 
 	private House [] houses;
 	private String bio;
@@ -13,14 +14,11 @@ public class Owner extends User {
 	private String publicEmailDomain;
 
 	public Owner(String username, String password, int phone, String address,
-				String nationality, String emailUser, String emailDomain,
-				String bio, String publicEmailUser, String publicEmailDomain){
-		super(username, password, phone, address, nationality, emailUser, emailDomain);
-		houses = new House[10];
+				String nationality, String email, String bio, String publicEmail){
+		super(username, password, phone, address, nationality, email);
+		houses = new House[NUM_HOUSES];
 		numberOfHouses=0;
-		this.publicEmailUser=publicEmailUser;
-		this.publicEmailDomain=publicEmailDomain;
-	}
+		this.publicEmail=publicEmail;
 
 	public House[] getHouses() {
 		return houses;
@@ -40,7 +38,7 @@ public class Owner extends User {
 
 	public void addHouse(House house){
 		if (numberOfHouses == houses.length) {
-			House [] aux = new House[houses.length+10];
+			House [] aux = new House[houses.length*2];
 			for(int i=0 ; i<houses.length; i++)
 				aux[i]=houses[i];
 			this.houses=aux;
