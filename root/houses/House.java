@@ -42,6 +42,15 @@ public class House {
     this.name = name;
   }
 
+  public void display(){
+    System.out.println("\nHouse information");
+    System.out.println("Property's name:" + name);
+    System.out.println("Owner: " + owner);
+    System.out.println("Price per night per person: " + pricePerNightPerPerson);
+    System.out.println("Rental fee: "+ rentalFee);
+    System.out.println("Location" + location);
+  }
+
 /*
 	public void link(Owner owner) {
 		if (owner != null) {

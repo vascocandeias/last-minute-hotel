@@ -2,6 +2,7 @@ package root.bookings;
 
 import java.util.*;
 import java.time.*;
+import java.text.*;
 import root.houses.House;
 import root.users.Client;
 
@@ -54,6 +55,15 @@ public class Booking {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public void display(){
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		System.out.println("\nBooking information:");
+		System.out.println("Check-in:" + dateFormat.format(checkIn));
+		System.out.println("Check-out:" + dateFormat.format(checkOut));
+		house.display();
+		System.out.println("Total price: ");
 	}
 /*
 	public void link(Client client) {

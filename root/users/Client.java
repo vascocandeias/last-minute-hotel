@@ -23,7 +23,7 @@ public class Client extends User {
 
 	public void display() {
 		System.out.println("Client profile");
-		super.display;
+		super.display();
 	}
 
 	/*public void link(Booking futureBooking) {

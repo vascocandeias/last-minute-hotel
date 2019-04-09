@@ -49,7 +49,7 @@ public class Owner extends User {
 	public void setPublicEmail(String publicEmail) {
 		this.publicEmail = publicEmail;
 	}
-	}
+
 	//remove house from list
 	public void removeHouse(String name) {
 		boolean flag=false;
@@ -69,9 +69,9 @@ public class Owner extends User {
 	public void display(){
 		System.out.println("Owner Profile");
 		super.display();
-		System.out.println("Biography = " + bio);
-		System.out.println("Number of Houses = " + numberOfHouses);
-		System.out.println("Public Email = " + publicEmail);
+		System.out.println("\tBiography = " + bio);
+		System.out.println("\tNumber of Houses = " + numberOfHouses);
+		System.out.println("\tPublic Email = " + publicEmail);
 	}
 
 	//TODO: link
