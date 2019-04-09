@@ -10,6 +10,8 @@ public abstract class User {
 	private int phone;
 	private String address;
 	private String nationality;
+	private String emailUser;
+	private String emailDomain;
 	private String email;
 
 	public User(String username, String password, int phone, String address,

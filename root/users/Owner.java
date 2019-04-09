@@ -39,12 +39,12 @@ public class Owner extends User {
 	}
 
 	public void addHouse(House house){
-		if (numberOfHouses == houses.length {
+		if (numberOfHouses == houses.length) {
 			House [] aux = new House[houses.length+10];
 			for(int i=0 ; i<houses.length; i++)
 				aux[i]=houses[i];
 			this.houses=aux;
-		} 
+		}
 		houses[numberOfHouses] = house;
 		numberOfHouses++;
 	}
@@ -62,7 +62,7 @@ public class Owner extends User {
 		boolean flag=false;
 
 		numberOfHouses--;
-		for(int i=0; i<house.length; i++) {
+		for(int i=0; i<houses.length; i++) {
 			if (houses[i].getName().equals(name))
 				flag=true;
 			if(flag){ //if the house was found then next houses are shifted 1 back

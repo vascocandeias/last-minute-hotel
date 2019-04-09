@@ -6,6 +6,6 @@ public class LastMinuteHotel {
   public static void main(String[] args) {
     System.out.println("Hey");
     House house = new House();
-    
+    Booking booking = new Booking();
   }
 }
