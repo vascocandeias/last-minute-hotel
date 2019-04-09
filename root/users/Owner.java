@@ -5,13 +5,12 @@ import java.time.*;
 import root.houses.House;
 
 public class Owner extends User {
-	private static final int NUM_HOUSES 10;
+	private static final int NUM_HOUSES  = 10;
 
 	private House [] houses;
 	private String bio;
 	private int numberOfHouses;
-	private String publicEmailUser;
-	private String publicEmailDomain;
+	private String publicEmail;
 
 	public Owner(String username, String password, int phone, String address,
 				String nationality, String email, String bio, String publicEmail){
@@ -19,6 +18,7 @@ public class Owner extends User {
 		houses = new House[NUM_HOUSES];
 		numberOfHouses=0;
 		this.publicEmail=publicEmail;
+	}
 
 	public House[] getHouses() {
 		return houses;
@@ -29,11 +29,8 @@ public class Owner extends User {
 	public int getNumberOfHouses() {
 		return numberOfHouses;
 	}
-	public String getPublicEmailUser() {
-		return publicEmailUser;
-	}
-	public String getPublicEmailDomain() {
-		return publicEmailDomain;
+	public String getPublicEmail() {
+		return publicEmail;
 	}
 
 	public void addHouse(House house){
@@ -49,11 +46,9 @@ public class Owner extends User {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-	public void setPublicEmailUser(String publicEmailUser) {
-		this.publicEmailUser = publicEmailUser;
+	public void setPublicEmail(String publicEmail) {
+		this.publicEmail = publicEmail;
 	}
-	public void setPublicEmailDomain(String publicEmailDomain) {
-		this.publicEmailDomain = publicEmailDomain;
 	}
 	//remove house from list
 	public void removeHouse(String name) {
@@ -69,6 +64,14 @@ public class Owner extends User {
 					break;
 			}
 		}
+	}
+
+	public void display(){
+		System.out.println("Owner Profile");
+		super.display();
+		System.out.println("Biography = " + bio);
+		System.out.println("Number of Houses = " + numberOfHouses);
+		System.out.println("Public Email = " + publicEmail);
 	}
 
 	//TODO: link

@@ -6,7 +6,7 @@ import java.time.*;
 public abstract class User {
 
 	private static final int NUM_USERS = 10;
-	
+
 	private String username;
 	private String password;
 	private int phone;
@@ -89,5 +89,13 @@ public abstract class User {
 				else return null;
 		}
 		return null;
+	}
+
+	public void display() {
+		System.out.println("\tusername = " + username);
+		System.out.println("\tPhone = " + phone);
+		System.out.println("\tAddress = " + address);
+		System.out.println("\tNationality = " + nationality);
+		System.out.println("\tEmail = " + email);
 	}
 }

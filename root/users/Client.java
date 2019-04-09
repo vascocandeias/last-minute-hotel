@@ -21,6 +21,11 @@ public class Client extends User {
 		this.futureBooking = futureBooking;
 	}
 
+	public void display() {
+		System.out.println("Client profile");
+		super.display;
+	}
+
 	/*public void link(Booking futureBooking) {
 		if (futureBooking != null) {
 			futureBooking.unlinkFutureBooking();
