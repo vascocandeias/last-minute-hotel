@@ -1,43 +1,17 @@
-
 package root.users;
 
 import java.util.*;
 import java.time.*;
-
-
 import root.houses.House;
-// ----------- << imports@AAAAAAFp+w6SZBqZmpM= >>
-// ----------- >>
 
-// ----------- << class.annotations@AAAAAAFp+w6SZBqZmpM= >>
-// ----------- >>
 public class Booking {
-	// ----------- << attribute.annotations@AAAAAAFp+9trFV/ck9g= >>
-	// ----------- >>
+	
 	private Date checkIn;
-
-	// ----------- << attribute.annotations@AAAAAAFp+9ujrGBHTqg= >>
-	// ----------- >>
 	private Date checkOut;
-
-	// ----------- << attribute.annotations@AAAAAAFp+/80LXNEGks= >>
-	// ----------- >>
 	private House house;
-
-	// ----------- << attribute.annotations@AAAAAAFp+/+uinOKfyg= >>
-	// ----------- >>
 	private Client client;
-
-	// ----------- << attribute.annotations@AAAAAAFp/ABMK3P1Haw= >>
-	// ----------- >>
 	private double price;
-
-	// ----------- << attribute.annotations@AAAAAAFp+w7a+BrF2LY= >>
-	// ----------- >>
 	private Client ;
-
-	// ----------- << attribute.annotations@AAAAAAFp+w/nHx3OKd4= >>
-	// ----------- >>
 	private House ;
 
 	private Date getCheckIn() {

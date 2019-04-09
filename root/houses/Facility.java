@@ -1,16 +1,8 @@
-
 package root.houses;
 
 import java.util.*;
 import java.time.*;
 
-
-
-// ----------- << imports@AAAAAAFp++HTAWDWsoQ= >>
-// ----------- >>
-
-// ----------- << class.annotations@AAAAAAFp++HTAWDWsoQ= >>
-// ----------- >>
 public enum Facility {
 	Wifi,
 	Pool,
@@ -28,7 +20,4 @@ public enum Facility {
 	Pets Permission,
 	Blowdryer,
 	Fridge;
-
-// ----------- << enum.extras@AAAAAAFp++HTAWDWsoQ= >>
-// ----------- >>
 }

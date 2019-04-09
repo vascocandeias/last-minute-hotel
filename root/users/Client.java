@@ -1,23 +1,10 @@
-
 package root.users;
 
 import java.util.*;
-import java.time.*;
 
-
-
-// ----------- << imports@AAAAAAFp+wbVZhlClJ8= >>
-// ----------- >>
-
-// ----------- << class.annotations@AAAAAAFp+wbVZhlClJ8= >>
-// ----------- >>
 public class Client extends User {
-	// ----------- << attribute.annotations@AAAAAAFp+8sKvDzxKL0= >>
-	// ----------- >>
-	private Booking futureBooking;
 
-	// ----------- << attribute.annotations@AAAAAAFp+w7a+RrGBDo= >>
-	// ----------- >>
+	private Booking futureBooking;
 	private Booking ;
 
 	private Booking getFutureBooking() {
@@ -52,7 +39,4 @@ public class Client extends User {
 			set(null);
 		}
 	}
-
-// ----------- << class.extras@AAAAAAFp+wbVZhlClJ8= >>
-// ----------- >>
 }

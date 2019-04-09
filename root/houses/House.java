@@ -1,44 +1,18 @@
-
 package root.houses;
 
 import java.util.*;
 import java.time.*;
-
-
 import root.users.Booking;
 import root.users.Owner;
-// ----------- << imports@AAAAAAFp+w9sVhxfzwQ= >>
-// ----------- >>
 
-// ----------- << class.annotations@AAAAAAFp+w9sVhxfzwQ= >>
-// ----------- >>
 public class House {
-	// ----------- << attribute.annotations@AAAAAAFp+9BuGUdK7t8= >>
-	// ----------- >>
+
 	private Set<boolean> facilities = new HashSet<>();
-
-	// ----------- << attribute.annotations@AAAAAAFp+9EZpEj966I= >>
-	// ----------- >>
 	private Set<Booking> calendar = new HashSet<>();
-
-	// ----------- << attribute.annotations@AAAAAAFp+9Eo6UlLC6s= >>
-	// ----------- >>
 	private double pricePerNightPerPerson;
-
-	// ----------- << attribute.annotations@AAAAAAFp+9nDMlXLLjI= >>
-	// ----------- >>
 	private double rentalFee;
-
-	// ----------- << attribute.annotations@AAAAAAFp+9n0jVYRbmk= >>
-	// ----------- >>
 	private String location;
-
-	// ----------- << attribute.annotations@AAAAAAFp+w/QRx17U8A= >>
-	// ----------- >>
 	private Owner ;
-
-	// ----------- << attribute.annotations@AAAAAAFp+w/nHx3N6xU= >>
-	// ----------- >>
 	private Set<Booking>  = new HashSet<>();
 
 	private Set<boolean> getFacilities() {
@@ -123,6 +97,4 @@ public class House {
 		}
 	}
 
-// ----------- << class.extras@AAAAAAFp+w9sVhxfzwQ= >>
-// ----------- >>
 }

@@ -1,39 +1,15 @@
-
 package root.users;
 
 import java.util.*;
 import java.time.*;
 
-
-
-// ----------- << imports@AAAAAAFp97hPIE04tKs= >>
-// ----------- >>
-
-// ----------- << class.annotations@AAAAAAFp97hPIE04tKs= >>
-// ----------- >>
 public abstract class User {
-	// ----------- << attribute.annotations@AAAAAAFp97kBm02T1k4= >>
-	// ----------- >>
+
 	private String username;
-
-	// ----------- << attribute.annotations@AAAAAAFp97kdiE2aWlg= >>
-	// ----------- >>
 	private String password;
-
-	// ----------- << attribute.annotations@AAAAAAFp+62LGy14JKw= >>
-	// ----------- >>
 	private int phone;
-
-	// ----------- << attribute.annotations@AAAAAAFp+635vC4icvU= >>
-	// ----------- >>
 	private String address;
-
-	// ----------- << attribute.annotations@AAAAAAFp+64UxC5ojYg= >>
-	// ----------- >>
 	private String nationality;
-
-	// ----------- << attribute.annotations@AAAAAAFp+643jy6ux80= >>
-	// ----------- >>
 	private String email;
 
 	private String getUsername() {
@@ -83,7 +59,4 @@ public abstract class User {
 	private void setEmail(String email) {
 		this.email = email;
 	}
-
-// ----------- << class.extras@AAAAAAFp97hPIE04tKs= >>
-// ----------- >>
 }

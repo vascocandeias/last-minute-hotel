@@ -1,32 +1,15 @@
-
 package root.users;
 
 import java.util.*;
 import java.time.*;
-
-
 import root.houses.House;
-// ----------- << imports@AAAAAAFp+wcn2Bm9fvE= >>
-// ----------- >>
 
-// ----------- << class.annotations@AAAAAAFp+wcn2Bm9fvE= >>
-// ----------- >>
 public class Owner extends User {
-	// ----------- << attribute.annotations@AAAAAAFp+8/MG0bWBR8= >>
-	// ----------- >>
+
 	private Set<House> houses = new HashSet<>();
-
-	// ----------- << attribute.annotations@AAAAAAFp+9FHD0m0ayQ= >>
-	// ----------- >>
 	private String bio;
-
-	// ----------- << attribute.annotations@AAAAAAFp+9GExEofQAI= >>
-	// ----------- >>
 	private String publicEmail;
-
-	// ----------- << attribute.annotations@AAAAAAFp+w/QRx18tz8= >>
-	// ----------- >>
-	private Set<House>  = new HashSet<>();
+	private Set<House> = new HashSet<>();
 
 	private Set<House> getHouses() {
 		return houses;
@@ -73,7 +56,4 @@ public class Owner extends User {
 			it.remove();
 		}
 	}
-
-// ----------- << class.extras@AAAAAAFp+wcn2Bm9fvE= >>
-// ----------- >>
 }
