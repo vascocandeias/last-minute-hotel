@@ -3,44 +3,23 @@ package root.houses;
 import java.util.*;
 import root.users.Booking;
 import root.users.Owner;
+import root.bookings.Booking;
 
 public class House {
 
 	private boolean[] facilities = new boolean[Facility.allOf().size()];
-	private Booking[] calendar = new Booking[];
+	private Booking[] calendar = new Booking[Booking.CAL_SIZE];
 	private double pricePerNightPerPerson;
 	private double rentalFee;
 	private String location;
 	private Owner owner;
-	private Set<Booking>  = new HashSet<>();
 
-	private boolean[] getFacilities() {
-		return facilities;
-	}
-
-	private Set<Booking> getCalendar() {
-		return calendar;
-	}
-
-	private double getPricePerNightPerPerson() {
-		return pricePerNightPerPerson;
-	}
-
-	private double getRentalFee() {
-		return rentalFee;
-	}
-
-	private String getLocation() {
-		return location;
-	}
-
-	public Owner get() {
-		return ;
-	}
-
-	public Set<Booking> get() {
-		return ;
-	}
+	private boolean[] getFacilities() { return facilities; }
+	private Set<Booking> getCalendar() { return calendar; }
+	private double getPricePerNightPerPerson() { return pricePerNightPerPerson; }
+	private double getRentalFee() { return rentalFee; }
+	private String getLocation() { return location; }
+	public Owner getOwner() { return owner; }
 
 	private void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;
@@ -54,8 +33,8 @@ public class House {
 		this.location = location;
 	}
 
-	public void set(Owner ) {
-		this. = ;
+	public void set(Owner owner) {
+		this.owner = owner;
 	}
 
 	public void link(Owner _) {

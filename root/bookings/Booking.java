@@ -1,4 +1,4 @@
-package root.users;
+package root.bookings;
 
 import java.util.*;
 import java.time.*;
