@@ -5,14 +5,16 @@ import java.time.*;
 
 public abstract class User {
 
+	private static final int NUM_USERS = 10;
+	
 	private String username;
 	private String password;
 	private int phone;
 	private String address;
 	private String nationality;
 	private String email;
-	private static User [] users;
-	private static numberOfUsers;
+	private static User [] users = new User[NUM_USERS];
+	private static int numberOfUsers;
 
 	public User(String username, String password, int phone, String address,
 				String nationality, String email){
@@ -21,16 +23,15 @@ public abstract class User {
 		this.phone=phone;
 		this.address=address;
 		this.nationality=nationality;
-		this.emailUser=emailUser;
-		this.emailDomain=emailDomain;
-		if (this.numberOfUsers == this.users.length) {
-			User [] aux = new User[this.users.length*2];
-			for(int i=0 ; i<this.users.length; i++)
-				aux[i]=this.users[i];
-			this.users=aux;
+		this.email=email;
+		if (numberOfUsers == users.length) {
+			User [] aux = new User[users.length*2];
+			for(int i=0 ; i<users.length; i++)
+				aux[i]=users[i];
+			users=aux;
 		}
-		this.users[this.numberOfUsers] = this;
-		this.numberOfUsers++;
+		users[numberOfUsers] = this;
+		numberOfUsers++;
 	}
 
 	public String getUsername() {
@@ -82,9 +83,9 @@ public abstract class User {
 
 	static public User logIn(String username, String password){
 		for (int i=0; i<users.length; i++){
-			if (this.users[i].getUsername().equals(username))
-				if(this.users[i].getPassword().equals(password))
-					return this.users[i];
+			if (users[i].getUsername().equals(username))
+				if(users[i].getPassword().equals(password))
+					return users[i];
 				else return null;
 		}
 		return null;
