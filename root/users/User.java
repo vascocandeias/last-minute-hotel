@@ -28,6 +28,7 @@ public abstract class User {
 	public String getUsername() {
 		return username;
 	}
+	//private ?
 	public String getPassword() {
 		return password;
 	}
@@ -63,7 +64,14 @@ public abstract class User {
 		this.email = email;
 	}
 
-	public void display(){
-		System.out.println("");
+	static public User logIn(String username, String password, User...users){
+		for (int i=0; i<users.length; i++){
+			if (users[i].getUsername.equals(username))
+				if(users[i].getPassword.equals(password))
+					return user[i];
+				else return null;
+		}
+		return null;
 	}
+
 }
