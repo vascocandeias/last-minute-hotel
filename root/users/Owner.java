@@ -35,12 +35,12 @@ public class Owner extends User {
 		return publicEmailUser;
 	}
 	public String getPublicEmailDomain() {
-		return publicEmailUserDomain;
+		return publicEmailDomain;
 	}
 
 	public void addHouse(House house){
 		if (numberOfHouses == houses.length()) {
-			Houses [] aux = new House[houses.length()+10];
+			House [] aux = new House[houses.length()+10];
 			for(int i=0 ; i<houses.length(); i++)
 				aux[i]=houses[i];
 			this.houses=aux;
