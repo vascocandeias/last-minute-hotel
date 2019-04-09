@@ -13,11 +13,11 @@ public class Client extends User {
 		futureBooking=null;
 	}
 
-	private Booking getFutureBooking() {
+	public Booking getFutureBooking() {
 		return futureBooking;
 	}
 
-	private void setFutureBooking(Booking futureBooking) {
+	public void setFutureBooking(Booking futureBooking) {
 		this.futureBooking = futureBooking;
 	}
 

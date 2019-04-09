@@ -3,7 +3,6 @@ package root.houses;
 import java.util.*;
 import root.bookings.Booking;
 import root.users.Owner;
-import root.bookings.Booking;
 
 public class House {
 
@@ -20,8 +19,6 @@ public class House {
 	public double getRentalFee() { return rentalFee; }
 	public String getLocation() { return location; }
 	public Owner getOwner() { return owner; }
-
-  public House(){System.out.println("House created");};
 
 	public void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;

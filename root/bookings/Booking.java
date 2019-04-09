@@ -15,44 +15,44 @@ public class Booking {
 	private Client client;
 	private double price;
 
-	private Date getCheckIn() {
+	public Date getCheckIn() {
 		return checkIn;
 	}
 
-	private Date getCheckOut() {
+	public Date getCheckOut() {
 		return checkOut;
 	}
 
-	private House getHouse() {
+	public House getHouse() {
 		return house;
 	}
 
-	private Client getClient() {
+	public Client getClient() {
 		return client;
 	}
 
-	private double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 
-	private void setCheckIn(Date checkIn) {
+	public void setCheckIn(Date checkIn) {
 		this.checkIn = checkIn;
 	}
 
-	private void setCheckOut(Date checkOut) {
+	public void setCheckOut(Date checkOut) {
 		this.checkOut = checkOut;
 	}
 
-	private void setHouse(House house) {
+	public void setHouse(House house) {
 		this.house = house;
 	}
 
-	private void setClient(Client client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
-	private void setPrice(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 /*
