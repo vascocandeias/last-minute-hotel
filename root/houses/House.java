@@ -3,97 +3,76 @@ package root.houses;
 import java.util.*;
 import root.users.Booking;
 import root.users.Owner;
+import root.bookings.Booking;
 
 public class House {
 
-	private boolean[] facilities = new boolean[Facility.allOf().size()];
-	private Booking[] calendar = new Booking[];
+  private boolean[] facilities = new boolean[Facility.SIZE];
+	private Booking[] calendar = new Booking[Booking.CAL_SIZE];
 	private double pricePerNightPerPerson;
 	private double rentalFee;
 	private String location;
 	private Owner owner;
-	private Set<Booking>  = new HashSet<>();
 
-	private boolean[] getFacilities() {
-		return facilities;
-	}
+	public boolean[] getFacilities() { return facilities; }
+	public Booking[] getCalendar() { return calendar; }
+	public double getPricePerNightPerPerson() { return pricePerNightPerPerson; }
+	public double getRentalFee() { return rentalFee; }
+	public String getLocation() { return location; }
+	public Owner getOwner() { return owner; }
 
-	private Set<Booking> getCalendar() {
-		return calendar;
-	}
-
-	private double getPricePerNightPerPerson() {
-		return pricePerNightPerPerson;
-	}
-
-	private double getRentalFee() {
-		return rentalFee;
-	}
-
-	private String getLocation() {
-		return location;
-	}
-
-	public Owner get() {
-		return ;
-	}
-
-	public Set<Booking> get() {
-		return ;
-	}
-
-	private void setPricePerNightPerPerson(double pricePerNightPerPerson) {
+	public void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;
 	}
 
-	private void setRentalFee(double rentalFee) {
+	public void setRentalFee(double rentalFee) {
 		this.rentalFee = rentalFee;
 	}
 
-	private void setLocation(String location) {
+	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	public void set(Owner ) {
-		this. = ;
+	public void set(Owner owner) {
+		this.owner = owner;
 	}
 
-	public void link(Owner _) {
-		if (_ != null) {
-			_.get().add(this);
+	public void link(Owner owner) {
+		if (owner != null) {
+			owner.getOwner().add(this);
 		}
 
-		unlink();
-		set(_);
+		unlinkOwner();
+		setOwner(owner);
 	}
-
-	public void link(Booking _) {
-		if (_ != null) {
-			_.unlink();
-			_.set(this);
-			get().add(_);
+/*
+	public void link(Booking booking) {
+		if (booking != null) {
+			booking.unlink();
+			booking.setHouse(this);
+			getCalendar().add(booking);
 		}
 	}
 
-	public void unlink() {
+	public void unlinkOwner() {
 		if (get() != null) {
 			get().get().remove(this);
 			set(null);
 		}
 	}
 
-	public void unlink(Booking _) {
-		if (_ != null) {
-			_.set(null);
-			get().remove(_);
+	public void unlinkBooking(Booking booking) {
+		if (booking != null) {
+			booking.set(null);
+			get().remove(booking);
 		}
 	}
 
-	public void unlink(Booking _, Iterator<Booking> it) {
-		if (_ != null) {
-			_.set(null);
+	public void unlink(Booking booking, Iterator<Booking> it) {
+		if (booking != null) {
+			booking.set(null);
 			it.remove();
 		}
-	}
+	} */
 
 }

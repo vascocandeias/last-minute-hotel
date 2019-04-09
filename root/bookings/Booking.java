@@ -1,4 +1,4 @@
-package root.users;
+package root.bookings;
 
 import java.util.*;
 import java.time.*;
@@ -6,15 +6,13 @@ import root.houses.House;
 
 public class Booking {
 
-	private static final int CAL_SIZE = 15;
+	public static final int CAL_SIZE = 15;
 
 	private Date checkIn;
 	private Date checkOut;
 	private House house;
 	private Client client;
 	private double price;
-	private Client ;
-	private House ;
 
 	private Date getCheckIn() {
 		return checkIn;
@@ -36,13 +34,6 @@ public class Booking {
 		return price;
 	}
 
-	public Client get() {
-		return ;
-	}
-
-	public House get() {
-		return ;
-	}
 
 	private void setCheckIn(Date checkIn) {
 		this.checkIn = checkIn;
@@ -64,41 +55,33 @@ public class Booking {
 		this.price = price;
 	}
 
-	public void set(Client ) {
-		this. = ;
-	}
-
-	public void set(House ) {
-		this. = ;
-	}
-
-	public void link(Client _) {
-		if (_ != null) {
-			_.unlink();
-			_.set(this);
+	public void link(Client client) {
+		if (client != null) {
+			client.unlink();
+			client.set(this);
 		}
 
-		unlink();
-		set(_);
+		unlinkClient();
+		set(client);
 	}
 
-	public void link(House _) {
-		if (_ != null) {
-			_.get().add(this);
+	public void link(House house) {
+		if (house != null) {
+			house.get().add(this);
 		}
 
-		unlink();
-		set(_);
+		unlinkHouse();
+		set(house);
 	}
 
-	public void unlink() {
+	public void unlinkClient() {
 		if (get() != null) {
 			get().set(null);
 			set(null);
 		}
 	}
 
-	public void unlink() {
+	public void unlinkHouse() {
 		if (get() != null) {
 			get().get().remove(this);
 			set(null);
