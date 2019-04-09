@@ -22,11 +22,13 @@ public enum Facility {
 
 	private String name;
 
+	public static final int SIZE = Facility.values().length;
+
 	private Facility(String name) {
 		this.name = name;
 	}
 
-	public String name(){
+	public String getName(){
 		return name;
 	}
 }
