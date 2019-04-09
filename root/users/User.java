@@ -10,53 +10,49 @@ public abstract class User {
 	private int phone;
 	private String address;
 	private String nationality;
-	private String email;
+	private String emailUser;
+	private String emailDomain;
 
-	private String getUsername() {
-		return username;
+	public User(String username, String password, int phone, String address,
+				String nationality, String emailUser, String emailDomain) {
+
+		setUsername(username);
+		setPassword(password);
+		setPhone(phone);
+		setAddress(address);
+		setNationality(nationality);
+		setEmailUser(emailUser);
+		setEmailDomain(emailDomain);
 	}
 
-	private String getPassword() {
-		return password;
-	}
+	public String getUsername() {return username;}
+	public String getPassword() {return password;}
+	public int getPhone() {return phone;}
+	public String getAddress() {return address;}
+	public String getNationality() {return nationality;}
+	public String getEmailUser() {return email;}
 
-	private int getPhone() {
-		return phone;
-	}
-
-	private String getAddress() {
-		return address;
-	}
-
-	private String getNationality() {
-		return nationality;
-	}
-
-	private String getEmail() {
-		return email;
-	}
-
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	private void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	private void setPhone(int phone) {
+	public void setPhone(int phone) {
 		this.phone = phone;
 	}
-
-	private void setAddress(String address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	private void setNationality(String nationality) {
+	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-
-	private void setEmail(String email) {
-		this.email = email;
+	public void setEmailUser(String emailUser) {
+		this.emailUser = emailUser;
 	}
+	public void setEmailDomain(String emailDomain) {
+		this.emailDomain = emailDomain;
+	}
+
+	//TODO: check if values are correct to be inserted (try/catch/exception probably)
 }

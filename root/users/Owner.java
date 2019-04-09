@@ -6,54 +6,93 @@ import root.houses.House;
 
 public class Owner extends User {
 
-	private Set<House> houses = new HashSet<>();
+	private House [] houses;
 	private String bio;
-	private String publicEmail;
-	private Set<House> = new HashSet<>();
+	private int numberOfHouses;
+	private String publicEmailUser;
+	private String publicEmailDomain;
 
-	private Set<House> getHouses() {
+	public Owner(String username, String password, int phone, String address,
+				String nationality, String emailUser, String emailDomain,
+				String bio, String publicEmailUser, String publicEmailDomain){
+		super(username, password, phone, address, nationality, emailUser, emailDomain);
+		houses = new House[10];
+		numberOfHouses=0;
+		this.publicEmailUser=publicEmailUser;
+		this.publicEmailDomain=publicEmailDomain;
+	}
+
+	public House[] getHouses() {
 		return houses;
 	}
-
-	private String getBio() {
+	public String getBio() {
 		return bio;
 	}
-
-	private String getPublicEmail() {
-		return publicEmail;
+	public int getNumberOfHouses() {
+		return numberOfHouses;
+	}
+	public String getPublicEmailUser() {
+		return publicEmailUser;
+	}
+	public String getPublicEmailDomain() {
+		return publicEmailUserDomain;
 	}
 
-	public Set<House> get() {
-		return ;
+	public void addHouse(House house){
+		if (numberOfHouses == houses.length()) {
+			Houses [] aux = new House[houses.length()+10];
+			for(int i=0 ; i<houses.length(); i++)
+				aux[i]=houses[i];
+			this.houses=aux;
+		} 
+		houses[numberOfHouses] = house;
+		numberOfHouses++;
 	}
-
-	private void setBio(String bio) {
+	public void setBio(String bio) {
 		this.bio = bio;
 	}
-
-	private void setPublicEmail(String publicEmail) {
-		this.publicEmail = publicEmail;
+	public void setPublicEmailUser(String publicEmailUser) {
+		this.publicEmailUser = publicEmailUser;
 	}
+	public void setPublicEmailDomain(String publicEmailDomain) {
+		this.publicEmailDomain = publicEmailDomain;
+	}
+	//remove house from list
+	public void removeHouse(String name) {
+		boolean flag=false;
 
-	public void link(House _) {
-		if (_ != null) {
-			_.unlink();
-			_.set(this);
-			get().add(_);
+		numberOfHouses--;
+		for(int i=0; i<house.length(); i++) {
+			if (houses[i].getName().equals(name))
+				flag=true;
+			if(flag){ //if the house was found then next houses are shifted 1 back
+				houses[i]=houses[i+1];
+				if (houses[i+1]==null)
+					break;
+			}
 		}
 	}
 
-	public void unlink(House _) {
-		if (_ != null) {
-			_.set(null);
-			get().remove(_);
+	//TODO: link
+	/*public void link(House house) {
+		if (house != null) {
+			house.unlinkHouse();
+			house.set(this);
+			getHouse().addHouse(_);
 		}
 	}
 
-	public void unlink(House _, Iterator<House> it) {
-		if (_ != null) {
-			_.set(null);
-			it.remove();
+	public void unlinkHouse(House house) {
+		if (house != null) {
+			house.set(null);
+			getHouse().removeHouse(house);
 		}
 	}
+
+	public void unlinkHouse(House house, Iterator<House> it) {
+		if (house != null) {
+			house.setHouse(null);
+			it.removeHouse();
+		}
+	}*/
 }

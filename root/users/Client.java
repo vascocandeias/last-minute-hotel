@@ -5,38 +5,33 @@ import java.util.*;
 public class Client extends User {
 
 	private Booking futureBooking;
-	private Booking ;
+
+	public Client(String username, String password, int phone, String address,
+				String nationality, String emailUser, String emailDomain){
+		super(username, password, phone, address, nationality, emailUser, emailDomain);
+		futureBooking=null;
 
 	private Booking getFutureBooking() {
 		return futureBooking;
-	}
-
-	public Booking get() {
-		return ;
 	}
 
 	private void setFutureBooking(Booking futureBooking) {
 		this.futureBooking = futureBooking;
 	}
 
-	public void set(Booking ) {
-		this. = ;
-	}
-
-	public void link(Booking _) {
-		if (_ != null) {
-			_.unlink();
-			_.set(this);
+	/*public void link(Booking futureBooking) {
+		if (futureBooking != null) {
+			futureBooking.unlinkFutureBooking();
+			futureBooking.setFutureBooking(this);
 		}
-
-		unlink();
-		set(_);
+		unlinkFutureBooking();
+		setFutureBooking(futureBooking);
 	}
 
-	public void unlink() {
-		if (get() != null) {
-			get().set(null);
-			set(null);
+	public void unlinkFutureBooking() {
+		if (getFutureBooking() != null) {
+			getFutureBooking().setFutureBooking(null);
+			setFutureBooking(null);
 		}
-	}
+	}*/
 }
