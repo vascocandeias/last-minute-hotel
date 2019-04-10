@@ -63,7 +63,7 @@ public class House {
 			return true;
 	}
 
-	public static House [] search(String location, int in, int out){
+	public static House [] search(String location, int in, int out, boolean...facilities){
 		House[] results = new House[100];
 		User[] users = User.getUsers();
 		int nresults=0;
@@ -72,11 +72,22 @@ public class House {
 			if(users[i] instanceof Client) continue;
 			House[] houses = ((Owner) users[i]).getHouses();
 			for (int j=0; j<houses.length && houses[j] != null; j++)
-				if (houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
+				if ( this.facilitiesMatch(facilities) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
 					results[nresults++]=houses[j];
 		}
 		if (nresults==0) return null;
 		else return results;
+	}
+
+	private boolean facilitiesMatch(boolean...search) {
+		
+		boolean [] aux =  new boolean(Facility.SIZE); 
+		for(int i=0; i<Facility.SIZE; i++)
+			aux[i]= (search[i] && facilities[i]);
+		for(int i=o; i<Facility.SIZE; i++)
+			if (aux[i]!=search[i]) 
+				return false;
+		return true;
 	}
 
 	public double getPrice(int numPeople, int duration){
