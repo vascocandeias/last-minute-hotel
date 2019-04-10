@@ -15,17 +15,19 @@ public abstract class User {
 	private String address;
 	private String nationality;
 	private String email;
+	private String name;
 	private static User [] users = new User[NUM_USERS];
 	private static int numberOfUsers;
 
 	public User(String username, String password, String phone, String address,
-				String nationality, String email){
+				String nationality, String email, String name){
 		this.username=username;
 		this.password=password;
 		this.phone=Integer.parseInt(phone);
 		this.address=address;
 		this.nationality=nationality;
 		this.email=email;
+		this.name=name;
 		if (numberOfUsers == users.length) {
 			User [] aux = new User[users.length*2];
 			for(int i=0 ; i<users.length; i++)
@@ -64,7 +66,7 @@ public abstract class User {
 		return email;
 	}
 	public String getName(){
-		return username; //TODO: mudar para name
+		return name; 
 	}
 
 	public void setUsername(String username) {
@@ -85,6 +87,9 @@ public abstract class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public void setName(String name) {
+		this.name=name;
+	}
 
 	static public User logIn(String username, String password){
 		for (int i=0; i<users.length && users[i] != null; i++){
@@ -103,5 +108,6 @@ public abstract class User {
 		System.out.println("\tAddress = " + address);
 		System.out.println("\tNationality = " + nationality);
 		System.out.println("\tEmail = " + email);
+		System.out.println("\tName =  " + name);
 	}
 }

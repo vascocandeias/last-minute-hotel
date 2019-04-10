@@ -8,8 +8,8 @@ public class Client extends User {
 	private Booking futureBooking;
 
 	public Client(String username, String password, String phone, String address,
-				String nationality, String email){
-		super(username, password, phone, address, nationality, email);
+				String nationality, String email, String name){
+		super(username, password, phone, address, nationality, email, name);
 		futureBooking=null;
 	}
 

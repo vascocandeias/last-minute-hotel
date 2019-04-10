@@ -55,7 +55,9 @@ public class LastMinuteHotel {
       System.out.print("Number of people: ");
       Integer numPeople = Integer.parseInt(kb.nextLine());
 
-      House[] houses = House.search(location, in, out);
+      boolean [] tmp = new boolean[Facility.SIZE];
+
+      House[] houses = House.search(location, in, out, tmp);
 
       if(houses == null){
         System.out.println("Sorry! Your search did not get any results");
@@ -245,9 +247,11 @@ public class LastMinuteHotel {
     System.out.print("Email domain: ");
     String emailDomain = kb.nextLine();
     String email = emailUser + "@" + emailDomain;
+    System.out.print("Full name: ");
+    String name = kb.nextLine();
 
     if(isClient)
-      new Client(username, password, phone, address, nationality, email);
+      new Client(username, password, phone, address, nationality, email, name);
     else{
       System.out.print("Bio: ");
       String bio = kb.nextLine();
@@ -256,7 +260,7 @@ public class LastMinuteHotel {
       System.out.print("Public email domain: ");
       String publicEmailDomain = kb.nextLine();
       String publicEmail = publicEmailUser + "@" + publicEmailDomain;
-      new Owner(username, password, phone, address, nationality, email, bio, publicEmail);
+      new Owner(username, password, phone, address, nationality, email, name, bio, publicEmail);
     }
   }
 

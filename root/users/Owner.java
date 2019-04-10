@@ -14,8 +14,8 @@ public class Owner extends User {
 	private int numberOfHouses;
 	private String publicEmail;
 
-	public Owner(String username, String password, String phone, String address, String nationality, String email, String bio, String publicEmail){
-		super(username, password, phone, address, nationality, email);
+	public Owner(String username, String password, String phone, String address, String nationality, String email, String name, String bio, String publicEmail){
+		super(username, password, phone, address, nationality, email, name);
 		houses = new House[NUM_HOUSES];
 		numberOfHouses=0;
 		this.publicEmail=publicEmail;
