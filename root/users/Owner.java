@@ -3,6 +3,7 @@ package root.users;
 import java.util.*;
 import java.time.*;
 import root.houses.House;
+import root.bookings.Booking;
 
 public class Owner extends User {
 	private static final int NUM_HOUSES  = 10;
@@ -81,6 +82,20 @@ public class Owner extends User {
 		System.out.println("Properties");
 		for(int i=0; i<numberOfHouses; i++)
 			System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation());
+	}
+
+	public void displayBookings(){
+		int i = 0;
+		Booking previous = null;
+
+		for(House house : houses){
+			if(house == null) return;
+			for(Booking booking : house.getCalendar()){
+				if(booking == null || booking == previous) continue;
+				previous = booking;
+				System.out.println("\t" + i++ + " : " + house.getName() + ", " + house.getLocation() + ": RM" + booking.getPrice());
+			}
+		}
 	}
 
 	public House getHouse(int i){

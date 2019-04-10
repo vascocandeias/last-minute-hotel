@@ -11,31 +11,33 @@ public class Booking {
 
 	public static final int CAL_SIZE = 15;
 
-	private Date checkIn;
-	private Date checkOut;
+	private LocalDate checkIn;
+	private LocalDate checkOut;
 	private House house;
 	private Client client;
 	private int numberOfPeople;
 	private double price;
 
 	public Booking(int in, int out, House house, Client client, int people){
-		this.setCheckIn(int2Date(in));
-		this.setCheckOut(int2Date(out));
+	//	this.setCheckIn(int2LocalDate(in));
+	//	this.setCheckOut(int2LocalDate(out));
 		this.setHouse(house);
 		this.setClient(client);
 		this.setNumberOfPeople(people);
 		this.setPrice(house.getPrice(people,out-in));
+		client.setFutureBooking(this);
 	}
 
-	private Date int2Date(int i) {
+	private LocalDate int2LocalDate(int i) {
 		//do
+		return new LocalDate();
 	}
 
-	public Date getCheckIn() {
+	public LocalDate getCheckIn() {
 		return checkIn;
 	}
 
-	public Date getCheckOut() {
+	public LocalDate getCheckOut() {
 		return checkOut;
 	}
 
@@ -55,11 +57,11 @@ public class Booking {
 		return numberOfPeople;
 	}
 
-	public void setCheckIn(Date checkIn) {
+	public void setCheckIn(LocalDate checkIn) {
 		this.checkIn = checkIn;
 	}
 
-	public void setCheckOut(Date checkOut) {
+	public void setCheckOut(LocalDate checkOut) {
 		this.checkOut = checkOut;
 	}
 
@@ -75,15 +77,15 @@ public class Booking {
 		this.price = price;
 	}
 
-	public void setNumberOfPeople(double numberOfPeople){
-		this.numberOfPeople = numberOfPeople
+	public void setNumberOfPeople(int numberOfPeople){
+		this.numberOfPeople = numberOfPeople;
 	}
 
 	public void display(){
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	//	LocalDateFormat dateFormat = new SimpleLocalDateFormat("dd/MM/yyyy");
 		System.out.println("\nBooking information:");
-		System.out.println("Check-in:" + dateFormat.format(checkIn));
-		System.out.println("Check-out:" + dateFormat.format(checkOut));
+	//	System.out.println("Check-in:" + dateFormat.format(checkIn));
+	//	System.out.println("Check-out:" + dateFormat.format(checkOut));
 		house.display();
 		System.out.println("Total price: ");
 	}

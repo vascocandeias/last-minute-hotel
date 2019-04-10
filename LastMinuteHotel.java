@@ -22,7 +22,27 @@ public class LastMinuteHotel {
       System.out.println("This service is limited to one booking! Check yours:");
       booking.display();
       //TODO: cancel booking
-    } else {
+      return;
+    }
+
+    while(true){
+
+      System.out.println("Do you want to search for a house?");
+      System.out.println("y - Yes");
+      System.out.println("n - No");
+
+      search:
+      while(true){
+        try {
+          switch(kb.nextLine().charAt(0)){
+            case 'y': break search;
+            case 'n': return;
+            default: System.out.println("Invalid input.");
+          }
+        } catch(StringIndexOutOfBoundsException e) {
+          continue;
+        }
+      }
 
       System.out.println("What are you looking for?");
 
@@ -39,11 +59,20 @@ public class LastMinuteHotel {
 
       if(houses == null){
         System.out.println("Sorry! Your search did not get any results");
-        return;
+        continue;
       }
 
       for(int i = 0; i < houses.length && houses[i] != null; i++){
         System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation() + ": RM" + houses[i].getPrice(numPeople, out-in));
+      }
+      //TODO: adicionar loop
+      System.out.print("Select one (or press b to go back): ");
+      try {
+        int i = Integer.parseInt(kb.nextLine());
+        selectHouse(client, houses[i], in, out, numPeople);
+      } catch(Exception e) {
+        System.out.println("Invalid input.");
+        continue;
       }
     }
   }
@@ -73,7 +102,7 @@ public class LastMinuteHotel {
             manageHouses(owner);
             break;
           case 'v':
-            System.out.println("Show me the money!");
+            owner.displayBookings();
             break;
           case 'a':
             addHouse(owner);
@@ -83,6 +112,31 @@ public class LastMinuteHotel {
           default:
             System.out.println("Invalid input.");
             break;
+        }
+      } catch(StringIndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+  }
+
+  public static void selectHouse(Client client, House house, int in, int out, int numPeople){
+
+    house.display();
+
+    Scanner kb = new Scanner(System.in);
+
+    System.out.println("Do you want to book this house?");
+    System.out.println("y - Yes");
+    System.out.println("n - No");
+
+    while(true){
+      try {
+        switch(kb.nextLine().charAt(0)){
+          case 'y':
+            house.addBooking(in, out, client, numPeople);
+            return;
+          case 'n': return;
+          default: System.out.println("Invalid input.");
         }
       } catch(StringIndexOutOfBoundsException e) {
         continue;

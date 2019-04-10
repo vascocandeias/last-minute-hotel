@@ -79,9 +79,8 @@ public class House {
 		else return results;
 	}
 
-
-	public Double getPrice(int numPersons, int duration){
-		return rentalFee + numPersons * duration * pricePerNightPerPerson;
+	public double getPrice(int numPeople, int duration){
+		return rentalFee + numPeople * duration * pricePerNightPerPerson;
 	}
 
 	public void addBooking(int in, int out, Client client, int numPeople){
