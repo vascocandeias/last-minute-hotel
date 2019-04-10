@@ -6,6 +6,7 @@ import java.text.*;
 import root.houses.House;
 import root.users.Client;
 import root.users.Owner;
+import java.time.format.DateTimeFormatter;
 
 public class Booking {
 
@@ -19,8 +20,8 @@ public class Booking {
 	private double price;
 
 	public Booking(int in, int out, House house, Client client, int people){
-	//	this.setCheckIn(int2LocalDate(in));
-	//	this.setCheckOut(int2LocalDate(out));
+		this.setCheckIn(in);
+		this.setCheckOut(out);
 		this.setHouse(house);
 		this.setClient(client);
 		this.setNumberOfPeople(people);
@@ -28,10 +29,6 @@ public class Booking {
 		client.setFutureBooking(this);
 	}
 
-	private LocalDate int2LocalDate(int i) {
-		//do
-		return new LocalDate();
-	}
 
 	public LocalDate getCheckIn() {
 		return checkIn;
@@ -57,12 +54,12 @@ public class Booking {
 		return numberOfPeople;
 	}
 
-	public void setCheckIn(LocalDate checkIn) {
-		this.checkIn = checkIn;
+	public void setCheckIn(int checkIn) {
+		this.checkIn = LocalDate.now().plusDays(checkIn);
 	}
 
-	public void setCheckOut(LocalDate checkOut) {
-		this.checkOut = checkOut;
+	public void setCheckOut(int checkOut) {
+		this.checkOut = LocalDate.now().plusDays(checkOut);
 	}
 
 	public void setHouse(House house) {
@@ -82,12 +79,12 @@ public class Booking {
 	}
 
 	public void display(){
-	//	LocalDateFormat dateFormat = new SimpleLocalDateFormat("dd/MM/yyyy");
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		System.out.println("\nBooking information:");
-	//	System.out.println("Check-in:" + dateFormat.format(checkIn));
-	//	System.out.println("Check-out:" + dateFormat.format(checkOut));
+		System.out.println("Check-in: " + dateFormat.format(checkIn));
+		System.out.println("Check-out: " + dateFormat.format(checkOut));
+		System.out.println("Total price: " + price);
 		house.display();
-		System.out.println("Total price: ");
 	}
 
 /*

@@ -4,6 +4,7 @@ import java.util.*;
 import java.time.*;
 import root.houses.House;
 import root.bookings.Booking;
+import java.time.format.DateTimeFormatter;
 
 public class Owner extends User {
 	private static final int NUM_HOUSES  = 10;
@@ -84,18 +85,22 @@ public class Owner extends User {
 			System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation());
 	}
 
-	public void displayBookings(){
+	public Booking[] displayBookings(){
 		int i = 0;
 		Booking previous = null;
+		Booking[] bookings = new Booking[100];
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		for(House house : houses){
-			if(house == null) return;
+			if(house == null) return bookings;
 			for(Booking booking : house.getCalendar()){
 				if(booking == null || booking == previous) continue;
 				previous = booking;
+				bookings[i] = booking; //TODO: aumentar bookings
 				System.out.println("\t" + i++ + " : " + house.getName() + ", " + house.getLocation() + ": RM" + booking.getPrice());
 			}
 		}
+		return bookings;
 	}
 
 	public House getHouse(int i){

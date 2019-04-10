@@ -52,7 +52,7 @@ public class LastMinuteHotel {
       Integer in = Integer.parseInt(kb.nextLine());
       System.out.print("Check-out: ");
       Integer out = Integer.parseInt(kb.nextLine());
-      System.out.print("Number of persons: ");
+      System.out.print("Number of people: ");
       Integer numPeople = Integer.parseInt(kb.nextLine());
 
       House[] houses = House.search(location, in, out);
@@ -102,7 +102,7 @@ public class LastMinuteHotel {
             manageHouses(owner);
             break;
           case 'v':
-            owner.displayBookings();
+            manageBookings(owner);
             break;
           case 'a':
             addHouse(owner);
@@ -117,6 +117,16 @@ public class LastMinuteHotel {
         continue;
       }
     }
+  }
+
+  public static void manageBookings(Owner owner){
+
+    Scanner kb = new Scanner(System.in);
+    Booking[] bookings = owner.displayBookings();
+
+    System.out.print("Choose one to get more details: ");
+    int i = Integer.parseInt(kb.nextLine());
+    bookings[i].display();
   }
 
   public static void selectHouse(Client client, House house, int in, int out, int numPeople){
