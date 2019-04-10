@@ -15,7 +15,21 @@ public class Booking {
 	private Date checkOut;
 	private House house;
 	private Client client;
+	private int numberOfPeople;
 	private double price;
+
+	public Booking(int in, int out, House house, Client client, int people){
+		this.setCheckIn(int2Date(in));
+		this.setCheckOut(int2Date(out));
+		this.setHouse(house);
+		this.setClient(client);
+		this.setNumberOfPeople(people);
+		this.setPrice(house.getPrice(people,out-in));
+	}
+
+	private Date int2Date(int i) {
+		//do
+	}
 
 	public Date getCheckIn() {
 		return checkIn;
@@ -37,6 +51,9 @@ public class Booking {
 		return price;
 	}
 
+	public int getNumberOfPeople() {
+		return numberOfPeople;
+	}
 
 	public void setCheckIn(Date checkIn) {
 		this.checkIn = checkIn;
@@ -56,6 +73,10 @@ public class Booking {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public void setNumberOfPeople(double numberOfPeople){
+		this.numberOfPeople = numberOfPeople
 	}
 
 	public void display(){
