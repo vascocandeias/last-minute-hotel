@@ -21,6 +21,7 @@ public class Client extends User {
 		this.futureBooking = futureBooking;
 	}
 
+	@Override
 	public void display() {
 		System.out.println("Client profile");
 		super.display();

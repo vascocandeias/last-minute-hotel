@@ -12,12 +12,12 @@ public class Owner extends User {
 	private int numberOfHouses;
 	private String publicEmail;
 
-	public Owner(String username, String password, String phone, String address,
-				String nationality, String email, String bio, String publicEmail){
+	public Owner(String username, String password, String phone, String address, String nationality, String email, String bio, String publicEmail){
 		super(username, password, phone, address, nationality, email);
 		houses = new House[NUM_HOUSES];
 		numberOfHouses=0;
 		this.publicEmail=publicEmail;
+		this.bio = bio;
 	}
 
 	public House[] getHouses() {
@@ -33,16 +33,17 @@ public class Owner extends User {
 		return publicEmail;
 	}
 
-	public void addHouse(House house){
+	public void addHouse(String name, double pricePerNightPerPerson, double rentalFee, String location){
+		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location);
 		if (numberOfHouses == houses.length) {
 			House [] aux = new House[houses.length*2];
 			for(int i=0 ; i<houses.length; i++)
 				aux[i]=houses[i];
 			this.houses=aux;
 		}
-		houses[numberOfHouses] = house;
-		numberOfHouses++;
+		houses[numberOfHouses++] = house;
 	}
+
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
@@ -54,6 +55,7 @@ public class Owner extends User {
 	public void removeHouse(String name) {
 		boolean flag=false;
 
+		//mudar este -- e o sítio da flag e a procura nao é por nome
 		numberOfHouses--;
 		for(int i=0; i<houses.length; i++) {
 			if (houses[i].getName().equals(name))
@@ -66,6 +68,7 @@ public class Owner extends User {
 		}
 	}
 
+	@Override
 	public void display(){
 		System.out.println("Owner Profile");
 		super.display();
@@ -73,6 +76,22 @@ public class Owner extends User {
 		System.out.println("\tNumber of Houses = " + numberOfHouses);
 		System.out.println("\tPublic Email = " + publicEmail);
 	}
+
+	public void displayHouses(){
+		System.out.println("Properties");
+		for(int i=0; i<numberOfHouses; i++)
+			System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation());
+	}
+
+	public House getHouse(int i){
+		try{
+			return houses[i];
+		} catch(Exception e){
+			return null;
+		}
+	}
+
+
 
 	//TODO: link
 	/*public void link(House house) {

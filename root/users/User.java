@@ -7,6 +7,8 @@ public abstract class User {
 
 	private static final int NUM_USERS = 10;
 
+	//TODO meter um nome no gajo lol
+
 	private String username;
 	private String password;
 	private int phone;
@@ -42,11 +44,11 @@ public abstract class User {
 		return password;
 	}
 	//private ?
-	public User [] getUsers() {
+	public static User [] getUsers() {
 		return users;
 	}
 	//private ?
-	public int getNumberOfUsers() {
+	public static int getNumberOfUsers() {
 		return numberOfUsers;
 	}
 	public int getPhone() {
@@ -60,6 +62,9 @@ public abstract class User {
 	}
 	public String getEmail() {
 		return email;
+	}
+	public String getName(){
+		return username; //TODO: mudar para name
 	}
 
 	public void setUsername(String username) {
@@ -83,10 +88,11 @@ public abstract class User {
 
 	static public User logIn(String username, String password){
 		for (int i=0; i<users.length && users[i] != null; i++){
-			if (users[i].getUsername().equals(username))
+			if (users[i].getUsername().equals(username)){
 				if(users[i].getPassword().equals(password))
 					return users[i];
 				else return null;
+			}
 		}
 		return null;
 	}

@@ -14,14 +14,37 @@ public class LastMinuteHotel {
       return;
     }
 
+    Scanner kb = new Scanner(System.in);
     Booking booking = client.getFutureBooking();
     client.display();
 
     if(booking != null){
       System.out.println("This service is limited to one booking! Check yours:");
       booking.display();
+      //TODO: cancel booking
     } else {
+
       System.out.println("What are you looking for?");
+
+      System.out.print("Location: ");
+      String location = kb.nextLine();
+      System.out.print("Check-in: ");
+      Integer in = Integer.parseInt(kb.nextLine());
+      System.out.print("Check-out: ");
+      Integer out = Integer.parseInt(kb.nextLine());
+      System.out.print("Number of persons: ");
+      Integer numPeople = Integer.parseInt(kb.nextLine());
+
+      House[] houses = House.search(location, in, out);
+
+      if(houses == null){
+        System.out.println("Sorry! Your search did not get any results");
+        return;
+      }
+
+      for(int i = 0; i < houses.length && houses[i] != null; i++){
+        System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation() + ": RM" + houses[i].getPrice(numPeople, out-in));
+      }
     }
   }
 
@@ -47,13 +70,13 @@ public class LastMinuteHotel {
       try {
         switch(kb.nextLine().charAt(0)){
           case 'm':
-            System.out.print("Manage them all!");
+            manageHouses(owner);
             break;
           case 'v':
             System.out.println("Show me the money!");
             break;
           case 'a':
-            System.out.println("Get more money!");
+            addHouse(owner);
             break;
           case 'q':
             return;
@@ -67,16 +90,42 @@ public class LastMinuteHotel {
     }
   }
 
+  public static void manageHouses(Owner owner){
+
+    Scanner kb = new Scanner(System.in);
+    owner.displayHouses();
+
+    System.out.print("Choose one to get more details: ");
+    int i = Integer.parseInt(kb.nextLine());
+    owner.getHouse(i).display();
+
+  }
+
+  public static void addHouse(Owner owner){
+
+    Scanner kb = new Scanner(System.in);
+
+    System.out.println("Fill out the details");
+    System.out.print("Name: ");
+    String name = kb.nextLine();
+    System.out.print("Price per night per person: ");
+    Double pricePerNightPerPerson = Double.parseDouble(kb.nextLine());
+    System.out.print("Rental Feee: ");
+    Double rentalFee = Double.parseDouble(kb.nextLine());
+    System.out.print("Location: ");
+    String location = kb.nextLine();
+
+    owner.addHouse(name, pricePerNightPerPerson, rentalFee, location);
+  }
+
   public static void login(){
 
     Scanner kb = new Scanner(System.in);
-    String username;
-    String password;
 
     System.out.print("Username: ");
-    username = kb.nextLine();
+    String username = kb.nextLine();
     System.out.print("Password: ");
-    password = kb.nextLine();
+    String password = kb.nextLine();
     User user = User.logIn(username, password);
     if(user instanceof Client)
       menu((Client) user);
@@ -89,18 +138,6 @@ public class LastMinuteHotel {
     boolean isClient = true;
 
     Scanner kb = new Scanner(System.in);
-    String username;
-    String password;
-    String phone;
-    String address;
-    String nationality;
-    String emailUser;
-    String emailDomain;
-    String email;
-    String bio;
-    String publicEmailUser;
-    String publicEmailDomain;
-    String publicEmail;
 
     System.out.println("Who are you?");
     System.out.println("c - A client");
@@ -130,31 +167,31 @@ public class LastMinuteHotel {
 
     System.out.println("Fill out the details");
     System.out.print("Username: ");
-    username = kb.nextLine();
+    String username = kb.nextLine();
     System.out.print("Password: ");
-    password = kb.nextLine();
+    String password = kb.nextLine();
     System.out.print("Phone: ");
-    phone = kb.nextLine();
+    String phone = kb.nextLine();
     System.out.print("Address: ");
-    address = kb.nextLine();
+    String address = kb.nextLine();
     System.out.print("Nationality: ");
-    nationality = kb.nextLine();
+    String nationality = kb.nextLine();
     System.out.print("Email username: ");
-    emailUser = kb.nextLine();
+    String emailUser = kb.nextLine();
     System.out.print("Email domain: ");
-    emailDomain = kb.nextLine();
-    email = emailUser + "@" + emailDomain;
+    String emailDomain = kb.nextLine();
+    String email = emailUser + "@" + emailDomain;
 
     if(isClient)
       new Client(username, password, phone, address, nationality, email);
     else{
       System.out.print("Bio: ");
-      bio = kb.nextLine();
+      String bio = kb.nextLine();
       System.out.print("Public email username: ");
-      publicEmailUser = kb.nextLine();
+      String publicEmailUser = kb.nextLine();
       System.out.print("Public email domain: ");
-      publicEmailDomain = kb.nextLine();
-      publicEmail = publicEmailUser + "@" + publicEmailDomain;
+      String publicEmailDomain = kb.nextLine();
+      String publicEmail = publicEmailUser + "@" + publicEmailDomain;
       new Owner(username, password, phone, address, nationality, email, bio, publicEmail);
     }
   }

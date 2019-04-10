@@ -5,6 +5,7 @@ import java.time.*;
 import java.text.*;
 import root.houses.House;
 import root.users.Client;
+import root.users.Owner;
 
 public class Booking {
 
@@ -66,20 +67,6 @@ public class Booking {
 		System.out.println("Total price: ");
 	}
 
-	public House [] search(Owner [] owner, String location, int in, int out){
-		House [] results = House[100];
-		int nresults=0;
-
-		for(int i=0; i<owner.length; i++){
-			for (int j=0; j<owner[i].getHouses().length; j++)
-				if ((owner[i].getHouses())[j].getLocation().equals(location)
-					&& (owner[i].getHouses())[j].checkAvailabiblity(in, out))
-					results[nresults]=(owner[i].getHouses())[j];
-				nresults++;
-		}
-		if (nresults==0) return null;
-		else results;
-	}
 /*
 	public void link(Client client) {
 		if (client != null) {
