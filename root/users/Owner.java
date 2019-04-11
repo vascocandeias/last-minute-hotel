@@ -82,23 +82,6 @@ public class Owner extends User {
 		this.publicEmail = publicEmail;
 	}
 
-	//remove house from list
-	public void removeHouse(String name) {
-		boolean flag=false;
-
-		//mudar este -- e o sítio da flag e a procura nao é por nome
-		numberOfHouses--;
-		for(int i=0; i<houses.length; i++) {
-			if (houses[i].getName().equals(name))
-				flag=true;
-			if(flag){ //if the house was found then next houses are shifted 1 back
-				houses[i]=houses[i+1];
-				if (houses[i+1]==null)
-					break;
-			}
-		}
-	}
-
 	@Override
 	public void display(){
 		System.out.println("Owner Profile");
@@ -159,11 +142,40 @@ public class Owner extends User {
   public void manageHouses(){
 
     Scanner kb = new Scanner(System.in);
+
+		//add loop
     displayHouses();
 
-    System.out.print("Choose one to get more details: ");
-    int i = Integer.parseInt(kb.nextLine());
-    houses[i].display();
+		int i;
+
+		while(true){
+			System.out.print("Choose one to get more details: ");
+			try {
+				i = Integer.parseInt(kb.nextLine());
+		    houses[i].display();
+				break;
+			} catch(Exception e) {
+				continue;
+			}
+		}
+
+		select:
+		while(true){
+			System.out.println("Do you want to delete this house?");
+			System.out.println("y - Yes");
+			System.out.println("n - No");
+			try {
+				switch(kb.nextLine().charAt(0)){
+					case 'y': houses[i].delete();
+					case 'n': break select;
+					default:
+						System.out.println("Invalid input.");
+						break;
+				}
+			} catch(StringIndexOutOfBoundsException e) {
+				continue;
+			}
+		}
   }
 
 	public void displayHouses(){
@@ -198,7 +210,21 @@ public class Owner extends User {
 		}
 	}
 
+	public void removeHouse(House house){
+		int i;
+    for(i = 0; i < houses.length && house != null; i++){
+      if(houses[i] == house) {
+				houses[i] = null;
+				break;
+			}
+    }
 
+		for(; i < houses.length - 1; i++){
+			houses[i] = houses[i+1];
+		}
+		houses[i] = null;
+		numberOfHouses--;
+  }
 
 	//TODO: link
 	/*public void link(House house) {

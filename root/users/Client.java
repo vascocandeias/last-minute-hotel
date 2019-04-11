@@ -40,11 +40,10 @@ public class Client extends User {
     if(futureBooking != null){
       System.out.println("This service is limited to one booking! Check yours:");
       futureBooking.display();
-      //TODO: cancel booking
       return;
     }
 
-    while(true){
+    while(futureBooking == null){
 
       System.out.println("Do you want to search for a house?");
       System.out.println("y - Yes");
@@ -64,6 +63,7 @@ public class Client extends User {
       }
 			search();
 		}
+		futureBooking.display();
 	}
 
 	public void search(){
@@ -110,12 +110,12 @@ public class Client extends User {
       System.out.println("\t" + j + " : " + houses[j].getName() + ", " + houses[j].getLocation() + ": RM" + houses[j].getPrice(numPeople, out-in));
     }
 
-    while(!booked){
+    while(futureBooking == null){
 	    System.out.print("Select one (or press b to go back): ");
 			input = kb.nextLine();
 	    try {
 	      int k = Integer.parseInt(input);
-	      booked = houses[k].selectHouse(this, in, out, numPeople);
+	      houses[k].selectHouse(this, in, out, numPeople);
 	    } catch(NumberFormatException e){
 				if(input.equals("b")) return;
 				System.out.println("Invalid input.");

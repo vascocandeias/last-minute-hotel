@@ -2,6 +2,7 @@ import java.util.*;
 import root.bookings.*;
 import root.houses.*;
 import root.users.*;
+import java.io.*;
 
 public class LastMinuteHotel {
 
@@ -10,9 +11,11 @@ public class LastMinuteHotel {
     try{
       User [] users = User.getUsersDatabase();
       User.displayUsers(users);
+    } catch(FileNotFoundException e){
     } catch(Exception e){
       System.out.println("There was an error with the database. Starting fresh.");
     }
+
 
     Scanner kb = new Scanner(System.in);
 

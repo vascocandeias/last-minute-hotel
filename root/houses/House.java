@@ -97,8 +97,7 @@ public class House {
 		return rentalFee + numPeople * duration * pricePerNightPerPerson;
 	}
 
-  public boolean selectHouse(Client client, int in, int out, int numPeople){
-
+  public void selectHouse(Client client, int in, int out, int numPeople) {
 		display();
 
 		Scanner kb = new Scanner(System.in);
@@ -110,10 +109,8 @@ public class House {
 		while(true){
 			try {
 				switch(kb.nextLine().charAt(0)){
-					case 'y':
-						addBooking(in, out, client, numPeople);
-						return true;
-					case 'n': return false;
+					case 'y': addBooking(in, out, client, numPeople);
+					case 'n': return;
 					default: System.out.println("Invalid input.");
 				}
 			} catch(StringIndexOutOfBoundsException e) {
@@ -133,6 +130,13 @@ public class House {
     for(int i = 0; i < calendar.length; i++){
       if(calendar[i] == booking) calendar[i] = null;
     }
+  }
+
+  public void delete(){
+    for(int i = 0; i < calendar.length; i++){
+      if(calendar[i] != null) calendar[i].delete();
+    }
+    owner.removeHouse(null);
   }
 
 	/*

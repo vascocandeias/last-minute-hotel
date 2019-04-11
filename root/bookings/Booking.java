@@ -83,12 +83,30 @@ public class Booking {
 	}
 
 	public void display(){
+		Scanner kb = new Scanner(System.in);
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		System.out.println("\nBooking information:");
 		System.out.println("Check-in: " + dateFormat.format(checkIn));
 		System.out.println("Check-out: " + dateFormat.format(checkOut));
 		System.out.println("Total price: " + price);
 		house.display();
+
+		while(true){
+
+			System.out.println("Choose an action:");
+			System.out.println("c - Cancel booking");
+			System.out.println("q - Quit");
+
+			try {
+				switch(kb.nextLine().charAt(0)){
+					case 'c': delete();
+					case 'q': return;
+					default: System.out.println("Invalid input.");
+				}
+			} catch(StringIndexOutOfBoundsException e) {
+				continue;
+			}
+		}
 	}
 
 
