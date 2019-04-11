@@ -21,13 +21,19 @@ public class Owner extends User {
 		Scanner kb = new Scanner(System.in);
 
 		System.out.print("Bio: ");
-		String bio = kb.nextLine();
+		this.setBio(kb.nextLine());
 		System.out.print("Public email username: ");
 		String publicEmailUser = kb.nextLine();
 		System.out.print("Public email domain: ");
 		String publicEmailDomain = kb.nextLine();
 		String publicEmail = publicEmailUser + "@" + publicEmailDomain;
+		this.setPublicEmail(publicEmail);
+	}
 
+	public Owner(String username, String password, String phone, String address, String nationality, String email, String name, String bio, String publicEmail) throws Exception{
+		super(username, password, phone, address, nationality, email, name);
+		houses = new House[NUM_HOUSES];
+		numberOfHouses=0;
 		this.setPublicEmail(publicEmail);
 		this.setBio(bio);
 	}

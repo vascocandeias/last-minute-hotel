@@ -7,6 +7,13 @@ public class LastMinuteHotel {
 
   public static void main(String[] args) {
 
+    try{
+      User [] users = User.getUsersDatabase();
+      User.displayUsers(users);
+    } catch(Exception e){
+      System.out.println("There was an error with the database. Starting fresh.");
+    }
+
     Scanner kb = new Scanner(System.in);
 
     System.out.println("Welcome to Last Minute Hotel Booking!");

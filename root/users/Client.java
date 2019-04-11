@@ -12,6 +12,11 @@ public class Client extends User {
 		futureBooking = null;
 	}
 
+	public Client(String username, String password, String phone, String address, String nationality, String email, String name) throws Exception {
+		super(username, password, phone, address, nationality, email, name);
+		futureBooking = null;
+	}
+
 	public Booking getFutureBooking() {
 		return futureBooking;
 	}

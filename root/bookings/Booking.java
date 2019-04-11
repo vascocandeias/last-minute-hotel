@@ -29,7 +29,6 @@ public class Booking {
 		client.setFutureBooking(this);
 	}
 
-
 	public LocalDate getCheckIn() {
 		return checkIn;
 	}
@@ -76,6 +75,11 @@ public class Booking {
 
 	public void setNumberOfPeople(int numberOfPeople){
 		this.numberOfPeople = numberOfPeople;
+	}
+
+	public void delete(){
+		house.removeBooking(this);
+		client.setFutureBooking(null);
 	}
 
 	public void display(){

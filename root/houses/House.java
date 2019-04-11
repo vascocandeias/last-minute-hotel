@@ -65,7 +65,7 @@ public class House {
 				return false;
 			return true;
 	}
-  
+
 	public static House [] search(String location, int in, int out, boolean[] facilities){
 		House[] results = new House[100];
 		User[] users = User.getUsers();
@@ -128,6 +128,12 @@ public class House {
 			calendar[i]=b;
 		}
 	}
+
+  public void removeBooking(Booking booking){
+    for(int i = 0; i < calendar.length; i++){
+      if(calendar[i] == booking) calendar[i] = null;
+    }
+  }
 
 	/*
 	public void link(Owner owner) {

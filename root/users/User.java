@@ -1,6 +1,7 @@
 package root.users;
 
 import java.util.*;
+import java.io.*;
 import java.time.*;
 
 public abstract class User {
@@ -44,6 +45,25 @@ public abstract class User {
     System.out.print("Email domain: ");
     String emailDomain = kb.nextLine();
     String email = emailUser + "@" + emailDomain;
+		this.setEmail(email);
+
+		if (numberOfUsers == users.length) {
+			User [] aux = new User[users.length*2];
+			for(int i=0 ; i<users.length; i++)
+				aux[i]=users[i];
+			users=aux;
+		}
+		users[numberOfUsers++] = this;
+	}
+
+	public User(String username, String password, String phone, String address, String nationality, String email, String name) throws Exception{
+
+		this.setName(name);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setPhone(Integer.parseInt(phone));
+		this.setAddress(address);
+		this.setNationality(nationality);
 		this.setEmail(email);
 
 		if (numberOfUsers == users.length) {
@@ -174,4 +194,52 @@ public abstract class User {
 		System.out.println("\tNationality = " + nationality);
 		System.out.println("\tEmail = " + email);
 	}
+
+	public static User [] getUsersDatabase() throws Exception{
+		String filename = "Users.txt";
+		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		String line;
+		int i = 0;
+		User [] u = new User[NUM_USERS];
+		while ((line = reader.readLine()) != null){
+			String type = line;
+			String username = reader.readLine();
+			String password = reader.readLine();
+			String phone = reader.readLine();
+			String address = reader.readLine();
+			String nationality = reader.readLine();
+			String email = reader.readLine();
+			String name = reader.readLine();
+			if (type.equals("O")){
+				String bio = reader.readLine();
+				String publicEmail = reader.readLine();
+				u[i++] = new Owner(username, password, phone, address, nationality, email, name, bio, publicEmail);
+			} else {
+				u[i++] = new Client(username, password, phone, address, nationality, email, name);
+			}
+		}
+		reader.close();
+		numberOfUsers = i;
+		return users;
+	}
+
+	public static void displayUsers(User [] u){
+		for (int i=0; i<u.length && u[i]!=null; i++){
+			if (u[i] instanceof Client)
+				System.out.println("C");
+			else System.out.println("O");
+			System.out.println(u[i].getUsername());
+			System.out.println(u[i].getPassword());
+			System.out.println(u[i].getPhone());
+			System.out.println(u[i].getAddress());
+			System.out.println(u[i].getNationality());
+			System.out.println(u[i].getEmail());
+			System.out.println(u[i].getName());
+			if (u[i] instanceof Owner){
+				System.out.println(((Owner) u[i]).getBio());
+				System.out.println(((Owner) u[i]).getPublicEmail());
+			}
+		}
+	}
+
 }
