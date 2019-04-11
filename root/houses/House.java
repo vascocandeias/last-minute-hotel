@@ -6,7 +6,7 @@ import root.users.*;
 
 public class House {
 
-	private boolean[] facilities = new boolean[Facility.SIZE];
+	private boolean[] facilities;
 	private Booking[] calendar = new Booking[Booking.CAL_SIZE];
 	private double pricePerNightPerPerson;
 	private double rentalFee;
@@ -21,6 +21,7 @@ public class House {
 		this.rentalFee = rentalFee;
 		this.location = location;
 		this.name = name;
+    this.facilities = Facility.chooseFacilities();
 	}
 
 	public boolean[] getFacilities() { return facilities; }
@@ -54,6 +55,8 @@ public class House {
 		System.out.println("Price per night per person: " + pricePerNightPerPerson);
 		System.out.println("Rental fee: "+ rentalFee);
 		System.out.println("Location: " + location);
+    System.out.println("Facilities:");
+    Facility.display(facilities);
 	}
 
 	public boolean checkAvailability(int in, int out){
@@ -63,7 +66,7 @@ public class House {
 			return true;
 	}
 
-	public static House [] search(String location, int in, int out, boolean...facilities){
+	public static House [] search(String location, int in, int out, boolean[] facilities){
 		House[] results = new House[100];
 		User[] users = User.getUsers();
 		int nresults=0;
@@ -72,7 +75,7 @@ public class House {
 			if(users[i] instanceof Client) continue;
 			House[] houses = ((Owner) users[i]).getHouses();
 			for (int j=0; j<houses.length && houses[j] != null; j++)
-				if ( facilitiesMatch(facilities, houses[j].getFacilities()) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
+				if (facilitiesMatch(facilities, houses[j].getFacilities()) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
 					results[nresults++]=houses[j];
 		}
 		if (nresults==0) return null;
@@ -80,12 +83,12 @@ public class House {
 	}
 
 	private static boolean facilitiesMatch(boolean [] search, boolean [] house) {
-		
-		boolean [] aux =  new boolean[Facility.SIZE]; 
+
+		boolean [] aux =  new boolean[Facility.SIZE];
 		for(int i=0; i<Facility.SIZE; i++)
 			aux[i] = (search[i] && house[i]);
 		for(int i=0; i<Facility.SIZE; i++)
-			if (aux[i]!=search[i]) 
+			if (aux[i]!=search[i])
 				return false;
 		return true;
 	}

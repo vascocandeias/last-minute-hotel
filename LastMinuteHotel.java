@@ -55,23 +55,23 @@ public class LastMinuteHotel {
       System.out.print("Number of people: ");
       Integer numPeople = Integer.parseInt(kb.nextLine());
 
-      boolean [] tmp = new boolean[Facility.SIZE];
+      boolean[] requested = Facility.chooseFacilities();
 
-      House[] houses = House.search(location, in, out, tmp);
+      House[] houses = House.search(location, in, out, requested);
 
       if(houses == null){
         System.out.println("Sorry! Your search did not get any results");
         continue;
       }
 
-      for(int i = 0; i < houses.length && houses[i] != null; i++){
-        System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation() + ": RM" + houses[i].getPrice(numPeople, out-in));
+      for(int j = 0; j < houses.length && houses[j] != null; j++){
+        System.out.println("\t" + j + " : " + houses[j].getName() + ", " + houses[j].getLocation() + ": RM" + houses[j].getPrice(numPeople, out-in));
       }
       //TODO: adicionar loop
       System.out.print("Select one (or press b to go back): ");
       try {
-        int i = Integer.parseInt(kb.nextLine());
-        selectHouse(client, houses[i], in, out, numPeople);
+        int k = Integer.parseInt(kb.nextLine());
+        selectHouse(client, houses[k], in, out, numPeople);
       } catch(Exception e) {
         System.out.println("Invalid input.");
         continue;
@@ -232,6 +232,8 @@ public class LastMinuteHotel {
     }
 
     System.out.println("Fill out the details");
+    System.out.print("Name: ");
+    String name = kb.nextLine();
     System.out.print("Username: ");
     String username = kb.nextLine();
     System.out.print("Password: ");
@@ -247,8 +249,6 @@ public class LastMinuteHotel {
     System.out.print("Email domain: ");
     String emailDomain = kb.nextLine();
     String email = emailUser + "@" + emailDomain;
-    System.out.print("Full name: ");
-    String name = kb.nextLine();
 
     if(isClient)
       new Client(username, password, phone, address, nationality, email, name);
