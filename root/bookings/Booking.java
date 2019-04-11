@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Booking {
 
-	public static final int CAL_SIZE = 15;
+	public static final int CAL_SIZE = 14;
 
 	private LocalDate checkIn;
 	private LocalDate checkOut;
@@ -85,6 +85,45 @@ public class Booking {
 		System.out.println("Check-out: " + dateFormat.format(checkOut));
 		System.out.println("Total price: " + price);
 		house.display();
+	}
+
+
+	public static void displayCalendar(){
+		DateTimeFormatter output = DateTimeFormatter.ofPattern("dd/MM");
+    LocalDate date = LocalDate.now();
+    DayOfWeek[] daysOfWeek = DayOfWeek.values();
+    int i;
+
+		System.out.print("    ");
+    for(DayOfWeek day : daysOfWeek)
+      System.out.printf("|     %s     ", day.toString().charAt(0));
+    System.out.println("|");
+    System.out.println("    -------------------------------------------------------------------------------------");
+		System.out.print("    ");
+
+    for(i = 0; daysOfWeek[i] != date.getDayOfWeek(); i++){
+      System.out.printf("|           ");
+    };
+
+    for(int j = 0; j < CAL_SIZE ; j++){
+      System.out.printf("| %2d: %s ", j, date.plusDays(j).format(output));
+      if(i == 6){
+        System.out.println("|");
+        System.out.println("    -------------------------------------------------------------------------------------");
+				System.out.print("    ");
+        i = 0;
+      } else i++;
+    }
+
+    for(; i < 7 && i > 0; i++){
+      System.out.printf("|           ");
+      if(i == 6){
+        System.out.println("|");
+        System.out.println("    -------------------------------------------------------------------------------------");
+        i = 0;
+        break;
+      }
+    }
 	}
 
 /*

@@ -14,12 +14,22 @@ public class Owner extends User {
 	private int numberOfHouses;
 	private String publicEmail;
 
-	public Owner(String username, String password, String phone, String address, String nationality, String email, String name, String bio, String publicEmail){
-		super(username, password, phone, address, nationality, email, name);
+	public Owner() throws Exception{
 		houses = new House[NUM_HOUSES];
 		numberOfHouses=0;
-		this.publicEmail=publicEmail;
-		this.bio = bio;
+
+		Scanner kb = new Scanner(System.in);
+
+		System.out.print("Bio: ");
+		String bio = kb.nextLine();
+		System.out.print("Public email username: ");
+		String publicEmailUser = kb.nextLine();
+		System.out.print("Public email domain: ");
+		String publicEmailDomain = kb.nextLine();
+		String publicEmail = publicEmailUser + "@" + publicEmailDomain;
+
+		this.setPublicEmail(publicEmail);
+		this.setBio(bio);
 	}
 
 	public House[] getHouses() {
@@ -35,13 +45,26 @@ public class Owner extends User {
 		return publicEmail;
 	}
 
-	public void addHouse(String name, double pricePerNightPerPerson, double rentalFee, String location){
+	public void addHouse(){
+
+		Scanner kb = new Scanner(System.in);
+
+		System.out.println("Fill out the details");
+		System.out.print("Name: ");
+		String name = kb.nextLine();
+		System.out.print("Price per night per person: ");
+		Double pricePerNightPerPerson = Double.parseDouble(kb.nextLine());
+		System.out.print("Rental Feee: ");
+		Double rentalFee = Double.parseDouble(kb.nextLine());
+		System.out.print("Location: ");
+		String location = kb.nextLine();
+
 		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location);
 		if (numberOfHouses == houses.length) {
 			House [] aux = new House[houses.length*2];
 			for(int i=0 ; i<houses.length; i++)
 				aux[i]=houses[i];
-			this.houses=aux;
+			houses=aux;
 		}
 		houses[numberOfHouses++] = house;
 	}
@@ -78,6 +101,64 @@ public class Owner extends User {
 		System.out.println("\tNumber of Houses = " + numberOfHouses);
 		System.out.println("\tPublic Email = " + publicEmail);
 	}
+
+	@Override
+	public void menu(){
+
+		Scanner kb = new Scanner(System.in);
+
+		display();
+
+		while(true){
+
+			System.out.println("Choose an action:");
+			System.out.println("m - Manage houses");
+			System.out.println("v - View bookings");
+			System.out.println("a - Add house");
+			System.out.println("q - quit");
+
+			try {
+				switch(kb.nextLine().charAt(0)){
+					case 'm':
+						manageHouses();
+						break;
+					case 'v':
+						manageBookings();
+						break;
+					case 'a':
+						addHouse();
+						break;
+					case 'q':
+						return;
+					default:
+						System.out.println("Invalid input.");
+						break;
+				}
+			} catch(StringIndexOutOfBoundsException e) {
+				continue;
+			}
+		}
+	}
+
+	public void manageBookings(){
+
+    Scanner kb = new Scanner(System.in);
+    Booking[] bookings = displayBookings();
+
+    System.out.print("Choose one to get more details: ");
+    int i = Integer.parseInt(kb.nextLine());
+    bookings[i].display();
+  }
+
+  public void manageHouses(){
+
+    Scanner kb = new Scanner(System.in);
+    displayHouses();
+
+    System.out.print("Choose one to get more details: ");
+    int i = Integer.parseInt(kb.nextLine());
+    houses[i].display();
+  }
 
 	public void displayHouses(){
 		System.out.println("Properties");

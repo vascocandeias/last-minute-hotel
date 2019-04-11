@@ -7,8 +7,6 @@ public abstract class User {
 
 	private static final int NUM_USERS = 10;
 
-	//TODO meter um nome no gajo lol
-
 	private String username;
 	private String password;
 	private int phone;
@@ -19,23 +17,42 @@ public abstract class User {
 	private static User [] users = new User[NUM_USERS];
 	private static int numberOfUsers;
 
-	public User(String username, String password, String phone, String address,
-				String nationality, String email, String name){
-		this.username=username;
-		this.password=password;
-		this.phone=Integer.parseInt(phone);
-		this.address=address;
-		this.nationality=nationality;
-		this.email=email;
-		this.name=name;
+	public User() throws Exception {
+
+		Scanner kb = new Scanner(System.in);
+
+		System.out.println("Fill out the details");
+    System.out.print("Name: ");
+		this.setName(kb.nextLine());
+    System.out.print("Username: ");
+		this.setUsername(kb.nextLine());
+    System.out.print("Password: ");
+		this.setPassword(kb.nextLine());
+    System.out.print("Phone: ");
+		try{
+			this.setPhone(Integer.parseInt(kb.nextLine()));
+		} catch(Exception e){
+			System.out.println("Phone number must be a positive integer");
+			throw new Exception();
+		}
+    System.out.print("Address: ");
+		this.setAddress(kb.nextLine());
+    System.out.print("Nationality: ");
+		this.setNationality(kb.nextLine());
+    System.out.print("Email username: ");
+    String emailUser = kb.nextLine();
+    System.out.print("Email domain: ");
+    String emailDomain = kb.nextLine();
+    String email = emailUser + "@" + emailDomain;
+		this.setEmail(email);
+
 		if (numberOfUsers == users.length) {
 			User [] aux = new User[users.length*2];
 			for(int i=0 ; i<users.length; i++)
 				aux[i]=users[i];
 			users=aux;
 		}
-		users[numberOfUsers] = this;
-		numberOfUsers++;
+		users[numberOfUsers++] = this;
 	}
 
 	public String getUsername() {
@@ -66,16 +83,24 @@ public abstract class User {
 		return email;
 	}
 	public String getName(){
-		return name; 
+		return name;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username) throws Exception {
+		for(User user : users){
+			if(user == null) break;
+			if(user.username.equals(username)){
+				System.out.println("This username already exists");
+				throw new Exception();
+			}
+		}
 		this.username = username;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(int phone) throws Exception {
+		if(phone < 0) throw new Exception();
 		this.phone = phone;
 	}
 	public void setAddress(String address) {
@@ -91,23 +116,62 @@ public abstract class User {
 		this.name=name;
 	}
 
-	static public User logIn(String username, String password){
+	public static User register() throws Exception {
+
+    Scanner kb = new Scanner(System.in);
+
+    System.out.println("Who are you?");
+    System.out.println("c - A client");
+    System.out.println("o - An owner");
+    System.out.println("q - None, let me go!");
+
+    while(true){
+      try {
+        switch(kb.nextLine().charAt(0)){
+          case 'c':
+            return new Client();
+          case 'o':
+            return new Owner();
+          case 'q':
+            return null;
+          default:
+            System.out.println("Invalid input.");
+            break;
+        }
+      } catch(StringIndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+  }
+
+	public static void logIn(){
+
+		Scanner kb = new Scanner(System.in);
+		User user = null;
+
+		System.out.print("Username: ");
+		String username = kb.nextLine();
+		System.out.print("Password: ");
+		String password = kb.nextLine();
+
 		for (int i=0; i<users.length && users[i] != null; i++){
 			if (users[i].getUsername().equals(username)){
-				if(users[i].getPassword().equals(password))
-					return users[i];
-				else return null;
+				if(users[i].getPassword().equals(password)){
+					users[i].menu();
+					return;
+				}
+				else return;
 			}
 		}
-		return null;
 	}
 
+	public abstract void menu();
+
 	public void display() {
-		System.out.println("\tusername = " + username);
+		System.out.println("\tName =  " + name);
 		System.out.println("\tPhone = " + phone);
 		System.out.println("\tAddress = " + address);
 		System.out.println("\tNationality = " + nationality);
 		System.out.println("\tEmail = " + email);
-		System.out.println("\tName =  " + name);
 	}
 }

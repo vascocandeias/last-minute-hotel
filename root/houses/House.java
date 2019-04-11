@@ -65,7 +65,7 @@ public class House {
 				return false;
 			return true;
 	}
-
+  
 	public static House [] search(String location, int in, int out, boolean[] facilities){
 		House[] results = new House[100];
 		User[] users = User.getUsers();
@@ -75,7 +75,7 @@ public class House {
 			if(users[i] instanceof Client) continue;
 			House[] houses = ((Owner) users[i]).getHouses();
 			for (int j=0; j<houses.length && houses[j] != null; j++)
-				if (facilitiesMatch(facilities, houses[j].getFacilities()) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
+				if (facilitiesMatch(facilities, houses[j].facilities) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
 					results[nresults++]=houses[j];
 		}
 		if (nresults==0) return null;
@@ -95,6 +95,31 @@ public class House {
 
 	public double getPrice(int numPeople, int duration){
 		return rentalFee + numPeople * duration * pricePerNightPerPerson;
+	}
+
+  public boolean selectHouse(Client client, int in, int out, int numPeople){
+
+		display();
+
+		Scanner kb = new Scanner(System.in);
+
+		System.out.println("Do you want to book this house?");
+		System.out.println("y - Yes");
+		System.out.println("n - No");
+
+		while(true){
+			try {
+				switch(kb.nextLine().charAt(0)){
+					case 'y':
+						addBooking(in, out, client, numPeople);
+						return true;
+					case 'n': return false;
+					default: System.out.println("Invalid input.");
+				}
+			} catch(StringIndexOutOfBoundsException e) {
+				continue;
+			}
+		}
 	}
 
 	public void addBooking(int in, int out, Client client, int numPeople){
