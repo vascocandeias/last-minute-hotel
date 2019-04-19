@@ -9,7 +9,7 @@ import java.io.*;
 public class House implements Manageable {
 
 	private boolean[] facilities;
-	private Booking[] calendar = new Booking[Booking.CAL_SIZE];
+	private ArrayList<Booking> calendar = new ArrayList<Booking>();
 	private double pricePerNightPerPerson;
 	private double rentalFee;
 	private String location;
@@ -23,6 +23,9 @@ public class House implements Manageable {
 		setLocation(location);
 		setName(name);
     setFacilities(Facility.chooseFacilities());
+		for(int i = 0; i < Booking.CAL_SIZE; i++){
+			calendar.add(null);
+		}
 	}
 
 	public House(Owner owner, String name, double pricePerNightPerPerson, double rentalFee, String location, String facilities){
@@ -32,10 +35,13 @@ public class House implements Manageable {
 		setLocation(location);
 		setName(name);
 		setFacilities(Facility.readFacilities(facilities));
+		for(int i = 0; i < Booking.CAL_SIZE; i++){
+			calendar.add(null);
+		}
 	}
 
 	public boolean[] getFacilities() { return facilities; }
-	public Booking[] getCalendar() { return calendar; }
+	public ArrayList<Booking> getCalendar() { return calendar; }
 	public double getPricePerNightPerPerson() { return pricePerNightPerPerson; }
 	public double getRentalFee() { return rentalFee; }
 	public String getLocation() { return location; }
@@ -44,26 +50,16 @@ public class House implements Manageable {
 	public double getPrice(int numPeople, int duration){
 		return rentalFee + numPeople * duration * pricePerNightPerPerson;
 	}
-	public Booking[] getBookings(){
-		Booking previous = null;
-		Booking[] bookings = new Booking[100];
-		int i = 0;
+	public ArrayList<Booking> getBookings(){
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
 
-		for(Booking booking : this.getCalendar()){
-			if(booking == null || booking == previous) continue;
-			previous = booking;
-			if(i == bookings.length){
-				Booking[] aux = new Booking[(bookings.length+1)*2];
-				for(int j = 0; j < bookings.length; j++){
-					aux[j] = bookings[j];
-				}
-				bookings = aux;
-			}
-			bookings[i++] = booking;
-		}
+		for(Booking booking : this.getCalendar())
+			if(booking != null && !bookings.contains(booking))
+				bookings.add(booking);
+
 		return bookings;
 	}
-	
+
 	public void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;
 	}
@@ -84,15 +80,15 @@ public class House implements Manageable {
 	}
 
 	public void addBooking(int in, int out, Client client, int numPeople){
-		Booking b = new Booking(in, out, this, client, numPeople);
+		Booking booking = new Booking(in, out, this, client, numPeople);
 		if(in < 0) in = 0;
-		for (int i = in; i<out; i++){
-			calendar[i]=b;
+		for (int i = in; i < out; i++){
+			calendar.set(i, booking);
 		}
 	}
   public void removeBooking(Booking booking){
-    for(int i = 0; i < calendar.length; i++){
-      if(calendar[i] == booking) calendar[i] = null;
+    for(int i = 0; i < calendar.size(); i++){
+      if(calendar.get(i) == booking) calendar.set(i,null);
     }
   }
 
@@ -110,25 +106,25 @@ public class House implements Manageable {
 
 	public boolean checkAvailability(int in, int out){
 		for(int i=in; i<out; i++)
-			if(calendar[i]!=null)
+			if(calendar.get(i)!=null)
 				return false;
 			return true;
 	}
 
-	public static House [] search(String location, int in, int out, boolean[] facilities){
-		House[] results = new House[100];
-		User[] users = User.getUsers();
-		int nresults=0;
+	public static ArrayList<House> search(String location, int in, int out, boolean[] facilities){
+		ArrayList<House> results = new ArrayList<House>();
+		ArrayList<User> users = User.getUsers();
 
-		for(int i=0; i<users.length && users[i] != null; i++){
-			if(users[i] instanceof Client) continue;
-			House[] houses = ((Owner) users[i]).getHouses();
-			for (int j=0; j<houses.length && houses[j] != null; j++)
-				if (facilitiesMatch(facilities, houses[j].facilities) && houses[j].location.equals(location) && houses[j].checkAvailability(in, out))
-					results[nresults++]=houses[j];
+		for(User user : users){
+			if(user instanceof Client) continue;
+			ArrayList<House> houses = ((Owner) user).getHouses();
+			for(House house : houses){
+				if (facilitiesMatch(facilities, house.facilities) && house.location.equals(location) && house.checkAvailability(in, out)){
+					results.add(house);
+				}
+			}
 		}
-		if (nresults==0) return null;
-		else return results;
+		return results;
 	}
 
 	private static boolean facilitiesMatch(boolean [] search, boolean [] house) {
@@ -165,8 +161,8 @@ public class House implements Manageable {
 	}
 
   public void delete(){
-    for(int i = 0; i < calendar.length; i++){
-      if(calendar[i] != null) calendar[i].delete();
+    for(int i = 0; i < calendar.size(); i++){
+      if(calendar.get(i) != null) calendar.get(i).delete();
     }
     owner.removeHouse(this);
   }

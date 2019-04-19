@@ -20,8 +20,7 @@ public abstract class User implements Manageable {
 	private String nationality;
 	private String email;
 	private String name;
-	private static User [] users = new User[ARRAY_SIZE];
-	private static int numberOfUsers;
+	private static ArrayList<User> users = new ArrayList<User>();
 
 	public User() throws Exception {
 
@@ -52,13 +51,7 @@ public abstract class User implements Manageable {
     String email = emailUser + "@" + emailDomain;
 		setEmail(email);
 
-		if (numberOfUsers == users.length) {
-			User [] aux = new User[users.length*2];
-			for(int i=0 ; i<users.length; i++)
-				aux[i]=users[i];
-			users=aux;
-		}
-		users[numberOfUsers++] = this;
+		users.add(this);
 	}
 
 	public User(String username, String password, String phone, String address, String nationality, String email, String name) throws Exception{
@@ -71,19 +64,13 @@ public abstract class User implements Manageable {
 		setNationality(nationality);
 		setEmail(email);
 
-		if (numberOfUsers == users.length) {
-			User [] aux = new User[users.length*2];
-			for(int i=0 ; i<users.length; i++)
-				aux[i]=users[i];
-			users=aux;
-		}
-		users[numberOfUsers++] = this;
+		users.add(this);
 	}
 
 	public String getUsername() {
 		return username;
 	}
-	public static User [] getUsers() {
+	public static ArrayList<User> getUsers() {
 		return users;
 	}
 	public String getName(){
@@ -96,7 +83,6 @@ public abstract class User implements Manageable {
 			throw new Exception();
 		}
 		for(User user : users){
-			if(user == null) break;
 			if(user.username.equals(username)){
 				System.out.println("This username already exists");
 				throw new Exception();
@@ -154,17 +140,16 @@ public abstract class User implements Manageable {
 	public static void logIn(){
 
 		Scanner kb = new Scanner(System.in);
-		User user = null;
 
-		System.out.print("Username: ");
+		System.out.print("\nUsername: ");
 		String username = kb.nextLine();
 		System.out.print("Password: ");
 		String password = kb.nextLine();
 
-		for (int i=0; i<users.length && users[i] != null; i++){
-			if (users[i].username.equals(username)){
-				if(users[i].password.equals(password)){
-					users[i].menu();
+		for (User user : users){
+			if (user.username.equals(username)){
+				if(user.password.equals(password)){
+					user.menu();
 					return;
 				}
 				else return;
@@ -174,9 +159,10 @@ public abstract class User implements Manageable {
 
 	public abstract void menu();
 	public static void deleteAll(){
-		for(int i = 0; i<users.length && users[i] != null; i++){
-			users[i].delete();
-			users[i] = null;
+		while(!users.isEmpty()){
+			User user = users.get(0);
+			user.delete();
+			users.remove(user);
 		}
 	}
 
@@ -250,9 +236,8 @@ public abstract class User implements Manageable {
 		userfile.close();
 	}
 
-	public static <T extends User> User find(Class<T> c, String u) throws Exception{
+	public static <T extends User> User find(Class<T> c, String u) throws Exception {
 		for(User user : users){
-			if(user == null) throw new Exception();
 			if(user.username.equals(u) && user.getClass().equals(c)) return user;
 		}
     throw new Exception();
@@ -263,8 +248,8 @@ public abstract class User implements Manageable {
 		BufferedWriter userFile = new BufferedWriter(new FileWriter("Users.txt"));
 		BufferedWriter houseFile = new BufferedWriter(new FileWriter("Houses.txt"));
 
-		for (int i=0; i<users.length && users[i]!=null; i++){
-			users[i].write(userFile, houseFile);
+		for (User user : users){
+			user.write(userFile, houseFile);
 		}
 		userFile.close();
 		houseFile.close();

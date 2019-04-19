@@ -8,13 +8,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Owner extends User {
 
-	private House [] houses;
+	private ArrayList<House> houses;
 	private String bio;
 	private int numberOfHouses;
 	private String publicEmail;
 
 	public Owner() throws Exception{
-		houses = new House[ARRAY_SIZE];
+		houses = new ArrayList<House>();
 		numberOfHouses=0;
 
 		Scanner kb = new Scanner(System.in);
@@ -31,13 +31,13 @@ public class Owner extends User {
 
 	public Owner(String username, String password, String phone, String address, String nationality, String email, String name, String bio, String publicEmail) throws Exception{
 		super(username, password, phone, address, nationality, email, name);
-		houses = new House[ARRAY_SIZE];
+		houses = new ArrayList<House>();
 		numberOfHouses=0;
 		setPublicEmail(publicEmail);
 		setBio(bio);
 	}
 
-	public House[] getHouses() {
+	public ArrayList<House> getHouses() {
 		return houses;
 	}
 	public String getPublicEmail() {
@@ -71,23 +71,14 @@ public class Owner extends User {
 		String location = kb.nextLine();
 
 		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location);
-		if (numberOfHouses == houses.length) {
-			House [] aux = new House[(houses.length+1)*2];
-			for(int i=0 ; i<houses.length; i++)
-				aux[i]=houses[i];
-			houses=aux;
-		}
-		houses[numberOfHouses++] = house;
+		houses.add(house);
+		numberOfHouses++;
 	}
+
 	public House addHouse(String name, double pricePerNightPerPerson, double rentalFee, String location, String fac){
 		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location, fac);
-		if (numberOfHouses == houses.length) {
-			House [] aux = new House[houses.length*2];
-			for(int i=0 ; i<houses.length; i++)
-				aux[i]=houses[i];
-			houses=aux;
-		}
-		houses[numberOfHouses++] = house;
+		houses.add(house);
+		numberOfHouses++;
 		return house;
 	}
 
@@ -98,23 +89,12 @@ public class Owner extends User {
 		this.publicEmail = publicEmail;
 	}
 	public void removeHouse(House house){
-		int i;
-    for(i = 0; i < houses.length && house != null; i++){
-      if(houses[i] == house) {
-				houses[i] = null;
-				break;
-			}
-    }
-
-		for(; i < houses.length - 1; i++){
-			houses[i] = houses[i+1];
-		}
-		houses[i] = null;
+		houses.remove(house);
 		numberOfHouses--;
   }
 
 	public void display(){
-		System.out.println("Owner Profile");
+		System.out.println("\nOwner Profile");
 		super.display();
 		System.out.println("\tBiography: " + bio);
 		System.out.println("\tNumber of Houses: " + numberOfHouses);
@@ -160,26 +140,47 @@ public class Owner extends User {
 	public void manageBookings(){
 
     Scanner kb = new Scanner(System.in);
-    Booking[] bookings = displayBookings();
+		String input;
+    ArrayList<Booking> bookings = displayBookings();
 
-    System.out.print("Choose one to get more details: ");
-    int i = Integer.parseInt(kb.nextLine());
-    bookings[i].display();
+		while(true){
+			System.out.print("\nChoose one to get more details (or press b to go back): ");
+			input = kb.nextLine();
+			try {
+				int i = Integer.parseInt(input);
+		    bookings.get(i).display();
+				break;
+			} catch(NumberFormatException e){
+				if(input.equals("b")) return;
+				System.out.println("Invalid input.");
+				continue;
+			} catch(Exception e) {
+				continue;
+			}
+		}
   }
+
   public void manageHouses(){
 
     Scanner kb = new Scanner(System.in);
+		String input;
 
     displayHouses();
 
-		int i;
+		House house = null;
 
 		while(true){
-			System.out.print("Choose one to get more details: ");
+			System.out.print("\nChoose one to get more details (or press b to go back): ");
+			input = kb.nextLine();
 			try {
-				i = Integer.parseInt(kb.nextLine());
-		    houses[i].display();
+				int i = Integer.parseInt(input);
+		    house = houses.get(i);
+				house.display();
 				break;
+			} catch(NumberFormatException e){
+				if(input.equals("b")) return;
+				System.out.println("Invalid input.");
+				continue;
 			} catch(Exception e) {
 				continue;
 			}
@@ -192,7 +193,7 @@ public class Owner extends User {
 			System.out.println("\tn - No");
 			try {
 				switch(kb.nextLine().charAt(0)){
-					case 'y': houses[i].delete();
+					case 'y': house.delete();
 					case 'n': break select;
 					default:
 						System.out.println("Invalid input.");
@@ -205,30 +206,24 @@ public class Owner extends User {
   }
 	public void displayHouses(){
 		System.out.println("\nYour houses:\n");
-		for(int i=0; i<numberOfHouses; i++)
-			System.out.println("\t" + i + " : " + houses[i].getName() + ", " + houses[i].getLocation());
-	}
-	public Booking[] displayBookings(){
 		int i = 0;
+		for(House house : houses)
+			System.out.println("\t" + i++ + " : " + house.getName() + ", " + house.getLocation());
+	}
+	public ArrayList<Booking> displayBookings(){
+
 		Booking previous = null;
-		Booking[] bookings = new Booking[100];
+		int i = 0;
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		System.out.println("\nYour bookings:\n");
 
 		for(House house : houses){
-			if(house == null) return bookings;
 			for(Booking booking : house.getCalendar()){
 				if(booking == null || booking == previous) continue;
 				previous = booking;
-				if(i == bookings.length){
-					Booking[] aux = new Booking[(bookings.length+1)*2];
-					for(int j = 0; j < bookings.length; j++){
-						aux[j] = bookings[j];
-					}
-					bookings = aux;
-				}
-				bookings[i] = booking;
+				bookings.add(booking);
 				System.out.println("\t" + i++ + " : " + house.getName() + ", " + house.getLocation() + ": RM" + booking.getPrice());
 			}
 		}
@@ -236,8 +231,8 @@ public class Owner extends User {
 	}
 
 	public void delete(){
-		for(int i = 0;  i<houses.length && houses[i] != null; i++){
-			houses[i].delete();
+		while(!houses.isEmpty()){
+			houses.get(0).delete();
 		}
 	}
 
@@ -247,9 +242,9 @@ public class Owner extends User {
 		file.write(bio+"\n");
 		file.write(publicEmail+"\n");
 
-		for (int j=0; j<numberOfHouses; j++){
+		for (House house: houses){
 			houseFile.write(getUsername()+"\n");
-			houses[j].write(houseFile);
+			house.write(houseFile);
 		}
 	}
 }

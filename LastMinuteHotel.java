@@ -17,6 +17,7 @@ public class LastMinuteHotel {
     } catch(Exception e){
       User.deleteAll();
       System.out.println("\nThere was an error with the database. Starting fresh.");
+      e.printStackTrace();
     }
 
     Scanner kb = new Scanner(System.in);

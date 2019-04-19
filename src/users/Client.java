@@ -96,23 +96,24 @@ public class Client extends User {
 		}
 
     boolean[] requested = Facility.chooseFacilities();
-    House[] houses = House.search(location, in, out, requested);
+    ArrayList<House> houses = House.search(location, in, out, requested);
 
-    if(houses == null){
+    if(houses.isEmpty()){
       System.out.println("Sorry! Your search did not get any results");
       return;
     }
 
-    for(int j = 0; j < houses.length && houses[j] != null; j++){
-      System.out.println("\t" + j + " : " + houses[j].getName() + ", " + houses[j].getLocation() + ": RM" + houses[j].getPrice(numPeople, out-in));
+		int j = 0;
+    for(House house : houses){
+      System.out.println("\t" + j++ + " : " + house.getName() + ", " + house.getLocation() + ": RM" + house.getPrice(numPeople, out-in));
     }
 
     while(futureBooking == null){
-	    System.out.print("\tSelect one (or press b to go back): ");
+	    System.out.print("\nSelect one (or press b to go back): ");
 			input = kb.nextLine();
 	    try {
 	      int k = Integer.parseInt(input);
-	      houses[k].selectHouse(this, in, out, numPeople);
+	      houses.get(k).selectHouse(this, in, out, numPeople);
 	    } catch(NumberFormatException e){
 				if(input.equals("b")) return;
 				System.out.println("Invalid input.");
