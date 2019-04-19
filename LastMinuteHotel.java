@@ -46,9 +46,9 @@ public class LastMinuteHotel {
         }
       } catch(StringIndexOutOfBoundsException e) {
         continue;
-      } /*catch(Exception e){
+      } catch(Exception e){
         break;
-      }*/
+      }
     }
     try{
       User.setDatabase();
