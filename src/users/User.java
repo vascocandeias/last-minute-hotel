@@ -1,12 +1,13 @@
-package root.users;
+package src.users;
 
 import java.util.*;
 import java.io.*;
 import java.time.*;
+import src.Manageable;
 
-public abstract class User {
+public abstract class User implements Manageable {
 
-	private static final int NUM_USERS = 10;
+	protected static final int ARRAY_SIZE = 10;
 
 	private String username;
 	private String password;
@@ -15,34 +16,34 @@ public abstract class User {
 	private String nationality;
 	private String email;
 	private String name;
-	private static User [] users = new User[NUM_USERS];
+	private static User [] users = new User[ARRAY_SIZE];
 	private static int numberOfUsers;
 
 	public User() throws Exception {
 
 		Scanner kb = new Scanner(System.in);
 
-		System.out.println("Fill out the details");
-    System.out.print("Name: ");
+		System.out.println("\nFill out the details\n");
+    System.out.print("\tName: ");
 		this.setName(kb.nextLine());
-    System.out.print("Username: ");
+    System.out.print("\tUsername: ");
 		this.setUsername(kb.nextLine());
-    System.out.print("Password: ");
+    System.out.print("\tPassword: ");
 		this.setPassword(kb.nextLine());
-    System.out.print("Phone: ");
+    System.out.print("\tPhone: ");
 		try{
 			this.setPhone(Integer.parseInt(kb.nextLine()));
 		} catch(Exception e){
-			System.out.println("Phone number must be a positive integer");
+			System.out.println("\tPhone number must be a nonnegative integer");
 			throw new Exception();
 		}
-    System.out.print("Address: ");
+    System.out.print("\tAddress: ");
 		this.setAddress(kb.nextLine());
-    System.out.print("Nationality: ");
+    System.out.print("\tNationality: ");
 		this.setNationality(kb.nextLine());
-    System.out.print("Email username: ");
+    System.out.print("\tEmail username: ");
     String emailUser = kb.nextLine();
-    System.out.print("Email domain: ");
+    System.out.print("\tEmail domain: ");
     String emailDomain = kb.nextLine();
     String email = emailUser + "@" + emailDomain;
 		this.setEmail(email);
@@ -107,6 +108,10 @@ public abstract class User {
 	}
 
 	public void setUsername(String username) throws Exception {
+		if(username.equals("b...b...b")){
+			System.out.println("b...b...b is not a valid username");
+			throw new Exception();
+		}
 		for(User user : users){
 			if(user == null) break;
 			if(user.username.equals(username)){
@@ -133,17 +138,17 @@ public abstract class User {
 		this.email = email;
 	}
 	public void setName(String name) {
-		this.name=name;
+		this.name = name;
 	}
 
 	public static User register() throws Exception {
 
     Scanner kb = new Scanner(System.in);
 
-    System.out.println("Who are you?");
-    System.out.println("c - A client");
-    System.out.println("o - An owner");
-    System.out.println("q - None, let me go!");
+    System.out.println("\nWho are you?\n");
+    System.out.println("\tc - A client");
+    System.out.println("\to - An owner");
+    System.out.println("\tq - None, let me go!");
 
     while(true){
       try {
@@ -163,7 +168,6 @@ public abstract class User {
       }
     }
   }
-
 	public static void logIn(){
 
 		Scanner kb = new Scanner(System.in);
@@ -187,12 +191,19 @@ public abstract class User {
 
 	public abstract void menu();
 
+	public static void deleteAll(){
+		for(int i = 0; i<users.length && users[i] != null; i++){
+			users[i].delete();
+			users[i] = null;
+		}
+	}
+
 	public void display() {
-		System.out.println("\tName =  " + name);
-		System.out.println("\tPhone = " + phone);
-		System.out.println("\tAddress = " + address);
-		System.out.println("\tNationality = " + nationality);
-		System.out.println("\tEmail = " + email);
+		System.out.println("\tName:  " + name);
+		System.out.println("\tPhone: " + phone);
+		System.out.println("\tAddress: " + address);
+		System.out.println("\tNationality: " + nationality);
+		System.out.println("\tEmail: " + email);
 	}
 
 	public static User [] getUsersDatabase() throws Exception{
@@ -200,7 +211,7 @@ public abstract class User {
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
 		String line;
 		int i = 0;
-		User [] u = new User[NUM_USERS];
+		User [] u = new User[ARRAY_SIZE];
 		while ((line = reader.readLine()) != null){
 			String type = line;
 			String username = reader.readLine();
@@ -220,9 +231,8 @@ public abstract class User {
 		}
 		reader.close();
 		numberOfUsers = i;
-		return users;
+		return users; // return users?
 	}
-
 	public static void displayUsers(User [] u){
 		for (int i=0; i<u.length && u[i]!=null; i++){
 			if (u[i] instanceof Client)

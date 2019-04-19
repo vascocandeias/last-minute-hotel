@@ -1,8 +1,8 @@
-package root.users;
+package src.users;
 
 import java.util.*;
-import root.bookings.*;
-import root.houses.*;
+import src.bookings.*;
+import src.houses.*;
 
 public class Client extends User {
 
@@ -20,14 +20,13 @@ public class Client extends User {
 	public Booking getFutureBooking() {
 		return futureBooking;
 	}
-
 	public void setFutureBooking(Booking futureBooking) {
 		this.futureBooking = futureBooking;
 	}
 
 	@Override
 	public void display() {
-		System.out.println("Client profile");
+		System.out.println("\nClient profile\n");
 		super.display();
 	}
 
@@ -38,16 +37,16 @@ public class Client extends User {
     display();
 
     if(futureBooking != null){
-      System.out.println("This service is limited to one booking! Check yours:");
+      System.out.println("\nThis service is limited to one booking! Check yours:\n");
       futureBooking.display();
       return;
     }
 
     while(futureBooking == null){
 
-      System.out.println("Do you want to search for a house?");
-      System.out.println("y - Yes");
-      System.out.println("n - No");
+      System.out.println("\nDo you want to search for a house?\n");
+      System.out.println("\ty - Yes");
+      System.out.println("\tn - No");
 
       search:
       while(true){
@@ -74,13 +73,13 @@ public class Client extends User {
 		Integer in, out;
 
 		Booking.displayCalendar();
-    System.out.println("\nWhat are you looking for?");
-    System.out.print("Location: ");
+    System.out.println("\nWhat are you looking for?\n");
+    System.out.print("\tLocation: ");
     String location = kb.nextLine();
 		try {
-			System.out.print("Check-in: ");
+			System.out.print("\tCheck-in: ");
 			in = Integer.parseInt(kb.nextLine());
-			System.out.print("Check-out: ");
+			System.out.print("\tCheck-out: ");
 			out = Integer.parseInt(kb.nextLine());
 			if(out <= in || in < 0 || out >= Booking.CAL_SIZE) throw new Exception();
 		} catch(Exception e) {
@@ -88,7 +87,7 @@ public class Client extends User {
 			return;
 		}
 
-    System.out.print("Number of people: ");
+    System.out.print("\tNumber of people: ");
 		Integer numPeople;
 		try{
 			numPeople = Integer.parseInt(kb.nextLine());
@@ -111,7 +110,7 @@ public class Client extends User {
     }
 
     while(futureBooking == null){
-	    System.out.print("Select one (or press b to go back): ");
+	    System.out.print("\tSelect one (or press b to go back): ");
 			input = kb.nextLine();
 	    try {
 	      int k = Integer.parseInt(input);
@@ -127,19 +126,7 @@ public class Client extends User {
 		}
   }
 
-	/*public void link(Booking futureBooking) {
-		if (futureBooking != null) {
-			futureBooking.unlinkFutureBooking();
-			futureBooking.setFutureBooking(this);
-		}
-		unlinkFutureBooking();
-		setFutureBooking(futureBooking);
+	public void delete(){
+		if(futureBooking != null) futureBooking.delete();
 	}
-
-	public void unlinkFutureBooking() {
-		if (getFutureBooking() != null) {
-			getFutureBooking().setFutureBooking(null);
-			setFutureBooking(null);
-		}
-	}*/
 }

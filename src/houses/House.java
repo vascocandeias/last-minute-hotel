@@ -1,10 +1,11 @@
-package root.houses;
+package src.houses;
 
 import java.util.*;
-import root.bookings.Booking;
-import root.users.*;
+import src.bookings.Booking;
+import src.users.*;
+import src.Manageable;
 
-public class House {
+public class House implements Manageable {
 
 	private boolean[] facilities;
 	private Booking[] calendar = new Booking[Booking.CAL_SIZE];
@@ -47,15 +48,27 @@ public class House {
 	public void setName(String name){
 		this.name = name;
 	}
+	public void addBooking(int in, int out, Client client, int numPeople){
+		Booking b = new Booking(in, out, this, client, numPeople);
+		for (int i=in; i<out; i++){
+			calendar[i]=b;
+		}
+	}
+  public void removeBooking(Booking booking){
+    for(int i = 0; i < calendar.length; i++){
+      if(calendar[i] == booking) calendar[i] = null;
+    }
+  }
 
 	public void display(){
-		System.out.println("\nHouse information");
-		System.out.println("Property's name: " + name);
-		System.out.println("Owner: " + owner.getName());
-		System.out.println("Price per night per person: " + pricePerNightPerPerson);
-		System.out.println("Rental fee: "+ rentalFee);
-		System.out.println("Location: " + location);
-    System.out.println("Facilities:");
+		System.out.println("\nHouse information\n");
+		System.out.println("\tProperty's name: " + name);
+		System.out.println("\tOwner: " + owner.getName());
+		System.out.println("\tOwner's email: " + owner.getPublicEmail());
+		System.out.println("\tPrice per night per person: " + pricePerNightPerPerson);
+		System.out.println("\tRental fee: "+ rentalFee);
+		System.out.println("\tLocation: " + location);
+    System.out.println("\tFacilities:");
     Facility.display(facilities);
 	}
 
@@ -97,14 +110,14 @@ public class House {
 		return rentalFee + numPeople * duration * pricePerNightPerPerson;
 	}
 
-  public void selectHouse(Client client, int in, int out, int numPeople) {
+	public void selectHouse(Client client, int in, int out, int numPeople) {
 		display();
 
 		Scanner kb = new Scanner(System.in);
 
-		System.out.println("Do you want to book this house?");
-		System.out.println("y - Yes");
-		System.out.println("n - No");
+		System.out.println("\nDo you want to book this house?\n");
+		System.out.println("\ty - Yes");
+		System.out.println("\tn - No");
 
 		while(true){
 			try {
@@ -119,63 +132,10 @@ public class House {
 		}
 	}
 
-	public void addBooking(int in, int out, Client client, int numPeople){
-		Booking b = new Booking(in, out, this, client, numPeople);
-		for (int i=in; i<out; i++){
-			calendar[i]=b;
-		}
-	}
-
-  public void removeBooking(Booking booking){
-    for(int i = 0; i < calendar.length; i++){
-      if(calendar[i] == booking) calendar[i] = null;
-    }
-  }
-
   public void delete(){
     for(int i = 0; i < calendar.length; i++){
       if(calendar[i] != null) calendar[i].delete();
     }
-    owner.removeHouse(null);
+    owner.removeHouse(this);
   }
-
-	/*
-	public void link(Owner owner) {
-		if (owner != null) {
-			owner.getOwner().add(this);
-		}
-
-		unlinkOwner();
-		setOwner(owner);
-	}
-/*
-	public void link(Booking booking) {
-		if (booking != null) {
-			booking.unlink();
-			booking.setHouse(this);
-			getCalendar().add(booking);
-		}
-	}
-
-	public void unlinkOwner() {
-		if (get() != null) {
-			get().get().remove(this);
-			set(null);
-		}
-	}
-
-	public void unlinkBooking(Booking booking) {
-		if (booking != null) {
-			booking.set(null);
-			get().remove(booking);
-		}
-	}
-
-	public void unlink(Booking booking, Iterator<Booking> it) {
-		if (booking != null) {
-			booking.set(null);
-			it.remove();
-		}
-	} */
-
 }

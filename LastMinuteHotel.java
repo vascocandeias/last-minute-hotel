@@ -1,33 +1,33 @@
 import java.util.*;
-import root.bookings.*;
-import root.houses.*;
-import root.users.*;
 import java.io.*;
 
-public class LastMinuteHotel {
+import src.bookings.*;
+import src.houses.*;
+import src.users.*;
 
+public class LastMinuteHotel {
   public static void main(String[] args) {
+
+    System.out.println("\nWelcome to Last Minute Hotel Booking!");
 
     try{
       User [] users = User.getUsersDatabase();
       User.displayUsers(users);
-    } catch(FileNotFoundException e){
+    } catch(FileNotFoundException e){ // don't do anything if the file does not exist
     } catch(Exception e){
-      System.out.println("There was an error with the database. Starting fresh.");
+      User.deleteAll();
+      System.out.println("\nThere was an error with the database. Starting fresh.");
     }
 
 
     Scanner kb = new Scanner(System.in);
-
-    System.out.println("Welcome to Last Minute Hotel Booking!");
-
     options:
     while(true){
 
-      System.out.println("Choose an action:");
-      System.out.println("l - login");
-      System.out.println("r - register");
-      System.out.println("q - quit");
+      System.out.println("\nChoose an action:\n");
+      System.out.println("\tl - Login");
+      System.out.println("\tr - Register");
+      System.out.println("\tq - Quit");
 
       try {
         switch(kb.nextLine().charAt(0)){
@@ -52,4 +52,6 @@ public class LastMinuteHotel {
       }*/
     }
   }
+
+  //TODO: escrever na base de dados
 }
