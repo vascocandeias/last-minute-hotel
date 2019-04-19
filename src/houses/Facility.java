@@ -65,4 +65,28 @@ public enum Facility {
 		}
 		return result;
 	}
+
+	public static String writeFacilities(boolean[] facilities){
+		String results="";
+		for(int i=0; i<Facility.SIZE;i++){
+			if (facilities[i]==true){
+				results+=i;
+				results+=" ";
+			}
+		}
+		return results;
+	}
+
+	public static boolean [] readFacilities(String s){
+
+		boolean [] result = new boolean[Facility.SIZE];
+		s = s.replaceAll("\\D", " ");
+		Scanner kb = new Scanner(s);
+		while(kb.hasNext()){
+			try{
+				result[kb.nextInt()] = true;
+			} catch(Exception e) {}
+		}
+		return result;
+	}
 }

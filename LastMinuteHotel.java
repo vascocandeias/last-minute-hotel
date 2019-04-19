@@ -11,14 +11,13 @@ public class LastMinuteHotel {
     System.out.println("\nWelcome to Last Minute Hotel Booking!");
 
     try{
-      User [] users = User.getUsersDatabase();
-      User.displayUsers(users);
+      User.getUserDatabase();
+      User.getHouseDatabase();
     } catch(FileNotFoundException e){ // don't do anything if the file does not exist
     } catch(Exception e){
       User.deleteAll();
       System.out.println("\nThere was an error with the database. Starting fresh.");
     }
-
 
     Scanner kb = new Scanner(System.in);
     options:
@@ -51,7 +50,8 @@ public class LastMinuteHotel {
         break;
       }*/
     }
+    try{
+      User.setDatabase();
+    }catch(Exception e){}
   }
-
-  //TODO: escrever na base de dados
 }

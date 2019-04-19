@@ -4,6 +4,7 @@ import java.util.*;
 import src.bookings.Booking;
 import src.users.*;
 import src.Manageable;
+import java.io.*;
 
 public class House implements Manageable {
 
@@ -16,13 +17,21 @@ public class House implements Manageable {
 	private String name;
 
 	public House(Owner owner, String name, double pricePerNightPerPerson, double rentalFee, String location){
-		if(owner == null) return; //throw exception
-		this.owner = owner;
-		this.pricePerNightPerPerson = pricePerNightPerPerson;
-		this.rentalFee = rentalFee;
-		this.location = location;
-		this.name = name;
-    this.facilities = Facility.chooseFacilities();
+		setOwner(owner);
+		setPricePerNightPerPerson(pricePerNightPerPerson);
+		setRentalFee(rentalFee);
+		setLocation(location);
+		setName(name);
+    setFacilities(Facility.chooseFacilities());
+	}
+
+	public House(Owner owner, String name, double pricePerNightPerPerson, double rentalFee, String location, String facilities){
+		setOwner(owner);
+		setPricePerNightPerPerson(pricePerNightPerPerson);
+		setRentalFee(rentalFee);
+		setLocation(location);
+		setName(name);
+		setFacilities(Facility.readFacilities(facilities));
 	}
 
 	public boolean[] getFacilities() { return facilities; }
@@ -32,7 +41,29 @@ public class House implements Manageable {
 	public String getLocation() { return location; }
 	public Owner getOwner() { return owner; }
 	public String getName() { return name; }
+	public double getPrice(int numPeople, int duration){
+		return rentalFee + numPeople * duration * pricePerNightPerPerson;
+	}
+	public Booking[] getBookings(){
+		Booking previous = null;
+		Booking[] bookings = new Booking[100];
+		int i = 0;
 
+		for(Booking booking : this.getCalendar()){
+			if(booking == null || booking == previous) continue;
+			previous = booking;
+			if(i == bookings.length){
+				Booking[] aux = new Booking[(bookings.length+1)*2];
+				for(int j = 0; j < bookings.length; j++){
+					aux[j] = bookings[j];
+				}
+				bookings = aux;
+			}
+			bookings[i++] = booking;
+		}
+		return bookings;
+	}
+	
 	public void setPricePerNightPerPerson(double pricePerNightPerPerson) {
 		this.pricePerNightPerPerson = pricePerNightPerPerson;
 	}
@@ -48,9 +79,14 @@ public class House implements Manageable {
 	public void setName(String name){
 		this.name = name;
 	}
+	public void setFacilities(boolean[] facilities){
+		this.facilities = facilities;
+	}
+
 	public void addBooking(int in, int out, Client client, int numPeople){
 		Booking b = new Booking(in, out, this, client, numPeople);
-		for (int i=in; i<out; i++){
+		if(in < 0) in = 0;
+		for (int i = in; i<out; i++){
 			calendar[i]=b;
 		}
 	}
@@ -106,10 +142,6 @@ public class House implements Manageable {
 		return true;
 	}
 
-	public double getPrice(int numPeople, int duration){
-		return rentalFee + numPeople * duration * pricePerNightPerPerson;
-	}
-
 	public void selectHouse(Client client, int in, int out, int numPeople) {
 		display();
 
@@ -138,4 +170,22 @@ public class House implements Manageable {
     }
     owner.removeHouse(this);
   }
+
+	public void write(BufferedWriter file) throws Exception {
+		int k = 0;
+		Booking previous = null;
+		file.write(name+"\n");
+		file.write(pricePerNightPerPerson+"\n");
+		file.write(rentalFee+"\n");
+		file.write(location+"\n");
+		file.write(Facility.writeFacilities(facilities)+"\n");
+
+		for (Booking booking : calendar){
+			if(booking == null || booking == previous) continue;
+			previous = booking;
+			if(k++ == 0) file.write("b...b...b\n");
+			booking.write(file);
+		}
+		if(k != 0) file.write("b...b...b\n");
+	}
 }

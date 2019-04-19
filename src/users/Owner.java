@@ -1,7 +1,7 @@
 package src.users;
 
 import java.util.*;
-import java.time.*;
+import java.io.*;
 import src.houses.House;
 import src.bookings.Booking;
 import java.time.format.DateTimeFormatter;
@@ -20,41 +20,28 @@ public class Owner extends User {
 		Scanner kb = new Scanner(System.in);
 
 		System.out.print("\tBio: ");
-		this.setBio(kb.nextLine());
+		setBio(kb.nextLine());
 		System.out.print("\tPublic email username: ");
 		String publicEmailUser = kb.nextLine();
 		System.out.print("\tPublic email domain: ");
 		String publicEmailDomain = kb.nextLine();
 		String publicEmail = publicEmailUser + "@" + publicEmailDomain;
-		this.setPublicEmail(publicEmail);
+		setPublicEmail(publicEmail);
 	}
 
 	public Owner(String username, String password, String phone, String address, String nationality, String email, String name, String bio, String publicEmail) throws Exception{
 		super(username, password, phone, address, nationality, email, name);
 		houses = new House[ARRAY_SIZE];
 		numberOfHouses=0;
-		this.setPublicEmail(publicEmail);
-		this.setBio(bio);
+		setPublicEmail(publicEmail);
+		setBio(bio);
 	}
 
 	public House[] getHouses() {
 		return houses;
 	}
-	public String getBio() {
-		return bio;
-	}
-	public int getNumberOfHouses() {
-		return numberOfHouses;
-	}
 	public String getPublicEmail() {
 		return publicEmail;
-	}
-	public House getHouse(int i){
-		try{
-			return houses[i];
-		} catch(Exception e){
-			return null;
-		}
 	}
 
 	public void addHouse(){
@@ -85,13 +72,25 @@ public class Owner extends User {
 
 		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location);
 		if (numberOfHouses == houses.length) {
-			House [] aux = new House[houses.length*2];
+			House [] aux = new House[(houses.length+1)*2];
 			for(int i=0 ; i<houses.length; i++)
 				aux[i]=houses[i];
 			houses=aux;
 		}
 		houses[numberOfHouses++] = house;
 	}
+	public House addHouse(String name, double pricePerNightPerPerson, double rentalFee, String location, String fac){
+		House house = new House(this, name, pricePerNightPerPerson, rentalFee, location, fac);
+		if (numberOfHouses == houses.length) {
+			House [] aux = new House[houses.length*2];
+			for(int i=0 ; i<houses.length; i++)
+				aux[i]=houses[i];
+			houses=aux;
+		}
+		houses[numberOfHouses++] = house;
+		return house;
+	}
+
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
@@ -114,7 +113,6 @@ public class Owner extends User {
 		numberOfHouses--;
   }
 
-	@Override
 	public void display(){
 		System.out.println("Owner Profile");
 		super.display();
@@ -122,8 +120,6 @@ public class Owner extends User {
 		System.out.println("\tNumber of Houses: " + numberOfHouses);
 		System.out.println("\tPublic Email: " + publicEmail);
 	}
-
-	@Override
 	public void menu(){
 
 		Scanner kb = new Scanner(System.in);
@@ -242,6 +238,18 @@ public class Owner extends User {
 	public void delete(){
 		for(int i = 0;  i<houses.length && houses[i] != null; i++){
 			houses[i].delete();
+		}
+	}
+
+	public void write(BufferedWriter file, BufferedWriter houseFile) throws Exception {
+		file.write("O"+"\n");
+		super.write(file, null);
+		file.write(bio+"\n");
+		file.write(publicEmail+"\n");
+
+		for (int j=0; j<numberOfHouses; j++){
+			houseFile.write(getUsername()+"\n");
+			houses[j].write(houseFile);
 		}
 	}
 }

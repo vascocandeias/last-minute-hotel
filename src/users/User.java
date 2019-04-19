@@ -4,6 +4,10 @@ import java.util.*;
 import java.io.*;
 import java.time.*;
 import src.Manageable;
+import src.houses.House;
+import src.bookings.Booking;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 
 public abstract class User implements Manageable {
 
@@ -25,28 +29,28 @@ public abstract class User implements Manageable {
 
 		System.out.println("\nFill out the details\n");
     System.out.print("\tName: ");
-		this.setName(kb.nextLine());
+		setName(kb.nextLine());
     System.out.print("\tUsername: ");
-		this.setUsername(kb.nextLine());
+		setUsername(kb.nextLine());
     System.out.print("\tPassword: ");
-		this.setPassword(kb.nextLine());
+		setPassword(kb.nextLine());
     System.out.print("\tPhone: ");
 		try{
-			this.setPhone(Integer.parseInt(kb.nextLine()));
+			setPhone(Integer.parseInt(kb.nextLine()));
 		} catch(Exception e){
 			System.out.println("\tPhone number must be a nonnegative integer");
 			throw new Exception();
 		}
     System.out.print("\tAddress: ");
-		this.setAddress(kb.nextLine());
+		setAddress(kb.nextLine());
     System.out.print("\tNationality: ");
-		this.setNationality(kb.nextLine());
+		setNationality(kb.nextLine());
     System.out.print("\tEmail username: ");
     String emailUser = kb.nextLine();
     System.out.print("\tEmail domain: ");
     String emailDomain = kb.nextLine();
     String email = emailUser + "@" + emailDomain;
-		this.setEmail(email);
+		setEmail(email);
 
 		if (numberOfUsers == users.length) {
 			User [] aux = new User[users.length*2];
@@ -59,13 +63,13 @@ public abstract class User implements Manageable {
 
 	public User(String username, String password, String phone, String address, String nationality, String email, String name) throws Exception{
 
-		this.setName(name);
-		this.setUsername(username);
-		this.setPassword(password);
-		this.setPhone(Integer.parseInt(phone));
-		this.setAddress(address);
-		this.setNationality(nationality);
-		this.setEmail(email);
+		setName(name);
+		setUsername(username);
+		setPassword(password);
+		setPhone(Integer.parseInt(phone));
+		setAddress(address);
+		setNationality(nationality);
+		setEmail(email);
 
 		if (numberOfUsers == users.length) {
 			User [] aux = new User[users.length*2];
@@ -79,29 +83,8 @@ public abstract class User implements Manageable {
 	public String getUsername() {
 		return username;
 	}
-	//private ?
-	public String getPassword() {
-		return password;
-	}
-	//private ?
 	public static User [] getUsers() {
 		return users;
-	}
-	//private ?
-	public static int getNumberOfUsers() {
-		return numberOfUsers;
-	}
-	public int getPhone() {
-		return phone;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String getNationality() {
-		return nationality;
-	}
-	public String getEmail() {
-		return email;
 	}
 	public String getName(){
 		return name;
@@ -179,8 +162,8 @@ public abstract class User implements Manageable {
 		String password = kb.nextLine();
 
 		for (int i=0; i<users.length && users[i] != null; i++){
-			if (users[i].getUsername().equals(username)){
-				if(users[i].getPassword().equals(password)){
+			if (users[i].username.equals(username)){
+				if(users[i].password.equals(password)){
 					users[i].menu();
 					return;
 				}
@@ -190,7 +173,6 @@ public abstract class User implements Manageable {
 	}
 
 	public abstract void menu();
-
 	public static void deleteAll(){
 		for(int i = 0; i<users.length && users[i] != null; i++){
 			users[i].delete();
@@ -206,49 +188,95 @@ public abstract class User implements Manageable {
 		System.out.println("\tEmail: " + email);
 	}
 
-	public static User [] getUsersDatabase() throws Exception{
-		String filename = "Users.txt";
-		BufferedReader reader = new BufferedReader(new FileReader(filename));
-		String line;
-		int i = 0;
-		User [] u = new User[ARRAY_SIZE];
-		while ((line = reader.readLine()) != null){
-			String type = line;
-			String username = reader.readLine();
-			String password = reader.readLine();
-			String phone = reader.readLine();
-			String address = reader.readLine();
-			String nationality = reader.readLine();
-			String email = reader.readLine();
-			String name = reader.readLine();
-			if (type.equals("O")){
-				String bio = reader.readLine();
-				String publicEmail = reader.readLine();
-				u[i++] = new Owner(username, password, phone, address, nationality, email, name, bio, publicEmail);
-			} else {
-				u[i++] = new Client(username, password, phone, address, nationality, email, name);
+	public static void getHouseDatabase() throws Exception {
+		BufferedReader housefile = new BufferedReader(new FileReader("Houses.txt"));
+		String hline;
+		String clientusername="";
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+		LocalDate date;
+
+		hline = housefile.readLine();
+		while(hline!=null){
+			Owner o = (Owner) find(Owner.class, hline);
+			String name = housefile.readLine();
+			double pricePerNightPerPerson = Double.parseDouble(housefile.readLine());
+			double rentalFee = Double.parseDouble(housefile.readLine());
+			String location = housefile.readLine();
+			String facilities = housefile.readLine();
+			House house = o.addHouse(name, pricePerNightPerPerson, rentalFee, location, facilities);
+			hline = housefile.readLine();
+			if (hline!=null && hline.equals("b...b...b")){
+				while(true){
+					clientusername = housefile.readLine();
+					if(clientusername.equals("b...b...b")){
+						hline=housefile.readLine();
+						break;
+					}
+					LocalDate checkIn = LocalDate.parse(housefile.readLine(), dateFormat);
+					LocalDate checkOut = LocalDate.parse(housefile.readLine(), dateFormat);
+					int in = (int) ChronoUnit.DAYS.between(LocalDate.now(), checkIn);
+					int out = (int) ChronoUnit.DAYS.between(LocalDate.now(), checkOut);
+					if(out <= in || out > Booking.CAL_SIZE) throw new Exception();
+					int np = Integer.parseInt(housefile.readLine());
+					Client c = (Client) find(Client.class, clientusername);
+					house.addBooking(in,out,c,np);
+				}
 			}
 		}
-		reader.close();
-		numberOfUsers = i;
-		return users; // return users?
+		housefile.close();
 	}
-	public static void displayUsers(User [] u){
-		for (int i=0; i<u.length && u[i]!=null; i++){
-			if (u[i] instanceof Client)
-				System.out.println("C");
-			else System.out.println("O");
-			System.out.println(u[i].getUsername());
-			System.out.println(u[i].getPassword());
-			System.out.println(u[i].getPhone());
-			System.out.println(u[i].getAddress());
-			System.out.println(u[i].getNationality());
-			System.out.println(u[i].getEmail());
-			System.out.println(u[i].getName());
-			if (u[i] instanceof Owner){
-				System.out.println(((Owner) u[i]).getBio());
-				System.out.println(((Owner) u[i]).getPublicEmail());
+
+	public static void getUserDatabase() throws Exception{
+		BufferedReader userfile = new BufferedReader(new FileReader("Users.txt"));
+
+		String uline;
+		while ((uline = userfile.readLine()) != null){
+			String type = uline;
+			String username = userfile.readLine();
+			String password = userfile.readLine();
+			String phone = userfile.readLine();
+			String address = userfile.readLine();
+			String nationality = userfile.readLine();
+			String email = userfile.readLine();
+			String name = userfile.readLine();
+			if (type.equals("O")){
+				String bio = userfile.readLine();
+				String publicEmail = userfile.readLine();
+				new Owner(username, password, phone, address, nationality, email, name, bio, publicEmail);
+			} else {
+				new Client(username, password, phone, address, nationality, email, name);
 			}
 		}
+		userfile.close();
+	}
+
+	public static <T extends User> User find(Class<T> c, String u) throws Exception{
+		for(User user : users){
+			if(user == null) throw new Exception();
+			if(user.username.equals(u) && user.getClass().equals(c)) return user;
+		}
+    throw new Exception();
+  }
+
+	public static void setDatabase() throws Exception{
+
+		BufferedWriter userFile = new BufferedWriter(new FileWriter("Users.txt"));
+		BufferedWriter houseFile = new BufferedWriter(new FileWriter("Houses.txt"));
+
+		for (int i=0; i<users.length && users[i]!=null; i++){
+			users[i].write(userFile, houseFile);
+		}
+		userFile.close();
+		houseFile.close();
+	}
+
+	public void write(BufferedWriter file, BufferedWriter houseFile) throws Exception {
+		file.write(username+"\n");
+		file.write(password+"\n");
+		file.write(phone+"\n");
+		file.write(address+"\n");
+		file.write(nationality+"\n");
+		file.write(email+"\n");
+		file.write(name+"\n");
 	}
 }

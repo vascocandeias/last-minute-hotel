@@ -1,25 +1,23 @@
 package src.users;
 
 import java.util.*;
-import src.bookings.*;
+import src.bookings.Booking;
 import src.houses.*;
+import java.io.*;
 
 public class Client extends User {
 
 	private Booking futureBooking;
 
 	public Client() throws Exception {
-		futureBooking = null;
+		setFutureBooking(null);
 	}
 
 	public Client(String username, String password, String phone, String address, String nationality, String email, String name) throws Exception {
 		super(username, password, phone, address, nationality, email, name);
-		futureBooking = null;
+		setFutureBooking(null);
 	}
 
-	public Booking getFutureBooking() {
-		return futureBooking;
-	}
 	public void setFutureBooking(Booking futureBooking) {
 		this.futureBooking = futureBooking;
 	}
@@ -128,5 +126,10 @@ public class Client extends User {
 
 	public void delete(){
 		if(futureBooking != null) futureBooking.delete();
+	}
+
+	public void write(BufferedWriter file, BufferedWriter houseFile) throws Exception {
+		file.write("C"+"\n");
+		super.write(file, null);
 	}
 }

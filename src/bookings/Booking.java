@@ -2,10 +2,9 @@ package src.bookings;
 
 import java.util.*;
 import java.time.*;
-import java.text.*;
+import java.io.*;
 import src.houses.House;
-import src.users.Client;
-import src.users.Owner;
+import src.users.*;
 import src.Manageable;
 import java.time.format.DateTimeFormatter;
 
@@ -20,32 +19,17 @@ public class Booking implements Manageable {
 	private double price;
 
 	public Booking(int in, int out, House house, Client client, int people){
-		this.setCheckIn(in);
-		this.setCheckOut(out);
-		this.setHouse(house);
-		this.setClient(client);
-		this.setNumberOfPeople(people);
-		this.setPrice(house.getPrice(people,out-in));
+		setCheckIn(in);
+		setCheckOut(out);
+		setHouse(house);
+		setClient(client);
+		setNumberOfPeople(people);
+		setPrice(house.getPrice(people,out-in));
 		client.setFutureBooking(this);
 	}
 
-	public LocalDate getCheckIn() {
-		return checkIn;
-	}
-	public LocalDate getCheckOut() {
-		return checkOut;
-	}
-	public House getHouse() {
-		return house;
-	}
-	public Client getClient() {
-		return client;
-	}
 	public double getPrice() {
 		return price;
-	}
-	public int getNumberOfPeople() {
-		return numberOfPeople;
 	}
 
 	public void setCheckIn(int checkIn) {
@@ -71,6 +55,7 @@ public class Booking implements Manageable {
 		if(house != null) house.removeBooking(this);
 		if(client != null) client.setFutureBooking(null);
 	}
+
 	public void display(){
 		Scanner kb = new Scanner(System.in);
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -97,6 +82,7 @@ public class Booking implements Manageable {
 			}
 		}
 	}
+
 	public static void displayCalendar(){
 		DateTimeFormatter output = DateTimeFormatter.ofPattern("dd/MM");
     LocalDate date = LocalDate.now();
@@ -133,5 +119,14 @@ public class Booking implements Manageable {
         break;
       }
     }
+	}
+
+	public void write(BufferedWriter file) throws Exception {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+		file.write(client.getUsername()+"\n");
+		file.write(checkIn.format(dateFormat)+"\n");
+		file.write(checkOut.format(dateFormat)+"\n");
+		file.write(numberOfPeople+"\n");
 	}
 }
