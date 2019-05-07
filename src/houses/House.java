@@ -127,7 +127,7 @@ public class House implements Manageable {
 		return results;
 	}
 
-	private static boolean facilitiesMatch(boolean [] search, boolean [] house) {
+	private static boolean facilitiesMatch(boolean[] search, boolean[] house) {
 
 		boolean [] aux =  new boolean[Facility.SIZE];
 		for(int i=0; i<Facility.SIZE; i++)

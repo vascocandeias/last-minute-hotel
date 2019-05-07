@@ -114,7 +114,7 @@ public class Owner extends User {
   }
 
 	public void display(){
-		System.out.println("Owner Profile");
+		System.out.println("\nOwner Profile");
 		super.display();
 		System.out.println("\tBiography: " + bio);
 		System.out.println("\tNumber of Houses: " + numberOfHouses);
@@ -160,26 +160,45 @@ public class Owner extends User {
 	public void manageBookings(){
 
     Scanner kb = new Scanner(System.in);
+		String input;
     Booking[] bookings = displayBookings();
 
-    System.out.print("Choose one to get more details: ");
-    int i = Integer.parseInt(kb.nextLine());
-    bookings[i].display();
+		while(true){
+			System.out.print("\nChoose one to get more details (or press b to go back): ");
+			input = kb.nextLine();
+			try {
+				int i = Integer.parseInt(input);
+				bookings[i].display();
+				break;
+			} catch(NumberFormatException e){
+				if(input.equals("b")) return;
+				System.out.println("Invalid input.");
+				continue;
+			} catch(Exception e) {
+				continue;
+			}
+		}
   }
+
   public void manageHouses(){
 
     Scanner kb = new Scanner(System.in);
 
     displayHouses();
 
-		int i;
+		int i = 0;
 
 		while(true){
-			System.out.print("Choose one to get more details: ");
+			System.out.print("\nChoose one to get more details (or press b to go back): ");
+			input = kb.nextLine();
 			try {
-				i = Integer.parseInt(kb.nextLine());
+				i = Integer.parseInt(input);
 		    houses[i].display();
 				break;
+			} catch(NumberFormatException e){
+				if(input.equals("b")) return;
+				System.out.println("Invalid input.");
+				continue;
 			} catch(Exception e) {
 				continue;
 			}
@@ -203,6 +222,7 @@ public class Owner extends User {
 			}
 		}
   }
+
 	public void displayHouses(){
 		System.out.println("\nYour houses:\n");
 		for(int i=0; i<numberOfHouses; i++)

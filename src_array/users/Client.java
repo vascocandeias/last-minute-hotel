@@ -103,12 +103,12 @@ public class Client extends User {
       return;
     }
 
-    for(int j = 0; j < houses.length && houses[j] != null; j++){
-      System.out.println("\t" + j + " : " + houses[j].getName() + ", " + houses[j].getLocation() + ": RM" + houses[j].getPrice(numPeople, out-in));
-    }
-
     while(futureBooking == null){
-	    System.out.print("\tSelect one (or press b to go back): ");
+			for(int j = 0; j < houses.length && houses[j] != null; j++){
+				System.out.println("\t" + j + " : " + houses[j].getName() + ", " + houses[j].getLocation() + ": RM" + houses[j].getPrice(numPeople, out-in));
+			}
+
+	    System.out.print("\nSelect one (or press b to go back): ");
 			input = kb.nextLine();
 	    try {
 	      int k = Integer.parseInt(input);

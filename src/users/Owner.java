@@ -204,6 +204,7 @@ public class Owner extends User {
 			}
 		}
   }
+	
 	public void displayHouses(){
 		System.out.println("\nYour houses:\n");
 		int i = 0;

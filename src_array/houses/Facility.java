@@ -54,7 +54,7 @@ public enum Facility {
 			System.out.println("\t" + i++ + " - " + facility.getName());
 		}
 
-		System.out.println("Insert numbers (separated by any character, for example '1,3 5') or leave blank: ");
+		System.out.println("\nInsert numbers (separated by any character, for example '1,3 5') or leave blank: ");
 		String s = kb.nextLine().replaceAll("\\D", " ");
 
 		kb = new Scanner(s);

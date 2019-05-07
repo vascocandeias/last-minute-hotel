@@ -156,7 +156,7 @@ public abstract class User implements Manageable {
 		Scanner kb = new Scanner(System.in);
 		User user = null;
 
-		System.out.print("Username: ");
+		System.out.print("\nUsername: ");
 		String username = kb.nextLine();
 		System.out.print("Password: ");
 		String password = kb.nextLine();

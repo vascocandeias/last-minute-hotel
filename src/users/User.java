@@ -11,8 +11,6 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class User implements Manageable {
 
-	protected static final int ARRAY_SIZE = 10;
-
 	private String username;
 	private String password;
 	private int phone;
