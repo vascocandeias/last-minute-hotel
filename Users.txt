@@ -14,7 +14,7 @@ R. DAquele outro lado
 Malaio
 maisuma@whatever.con
 Vasco de Campos Candeias
-Eu sou um gajo porreiro e aqui esta a minha biografia vou fazer isto um pouco grande mas em principio nao deve haver problema e tal.
+Esta é a minha biografia vou fazer isto um pouco grande mas em principio nao deve haver problema e tal.
 comercia@empresa.pt
 C
 c2
@@ -23,7 +23,7 @@ c2
 R. Aqui etc
 Russo
 email2@dominio.ru
-Nasdrovia Dmitri qq coisa
+Nome nome
 O
 o2
 o2
@@ -32,5 +32,5 @@ R. outra
 Latvia
 email@sdfsd
 OUTRO NOME
-Nova descricao atrasada
+Nova descricao
 comerciante@empresa3
